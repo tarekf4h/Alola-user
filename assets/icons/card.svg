@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="12" viewBox="0 0 16 12">
+  <g id="credit-card" transform="translate(0 -4)">
+    <circle id="Ellipse_553" data-name="Ellipse 553" cx="1" cy="1" r="1" transform="translate(2.667 11.333)" fill="#006ad8"/>
+    <path id="Path_10492" data-name="Path 10492" d="M12.667,4H3.333A3.337,3.337,0,0,0,0,7.333v5.333A3.337,3.337,0,0,0,3.333,16h9.333A3.337,3.337,0,0,0,16,12.667V7.333A3.337,3.337,0,0,0,12.667,4ZM3.333,5.333h9.333a2,2,0,0,1,2,2H1.333a2,2,0,0,1,2-2Zm9.333,9.333H3.333a2,2,0,0,1-2-2v-4H14.667v4A2,2,0,0,1,12.667,14.667Z" fill="#006ad8"/>
+  </g>
+</svg>
