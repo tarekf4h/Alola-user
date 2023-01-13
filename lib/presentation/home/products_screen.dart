@@ -30,19 +30,23 @@ class _ProductsScreenState extends State<ProductsScreen> {
         //   CustomText(text: "Products".tr() , fontSize: 18.0,color: AppUI.blackColor,fontWeight: FontWeight.w100)],),
         centerTitle: true,
         actions: [Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: SvgPicture.asset("${AppUI.iconPath}cart.svg"),
+          padding: const EdgeInsets.only(right: 16 , left: 16),
+          child: SvgPicture.asset("${AppUI.iconPath}cart.svg" ,),
         )],
-        title: SizedBox(
-          width: 300, 
-          child: CustomInput(suffixIcon:InkWell(onTap: () {
-            
-          },child:  Image.asset("${AppUI.imgPath}scannerIcon.png",height: 17,width: 25),),prefixIcon:Icon(Icons.search) ,controller: TextEditingController(), textInputType: TextInputType.name , hint: "search".tr() ),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: SizedBox(
+            width: 300, 
+            child: CustomInput(suffixIcon:InkWell(onTap: () {
+              
+            },child:  Image.asset("${AppUI.imgPath}scannerIcon.png",height: 17,width: 25),),prefixIcon:Icon(Icons.search) ,controller: TextEditingController(), textInputType: TextInputType.name , hint: "search".tr() ),
+          ),
         )
       ) ,
       body: Column(
         crossAxisAlignment:CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 16,),
           SizedBox(
             height: 50,
             child: Center(
@@ -133,7 +137,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
           Container(
             color: AppUI.backgroundColor,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
               child: ListView(
                 primary: true,
                 shrinkWrap : true ,
@@ -207,15 +211,15 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                 );
                   }),
                 ),
-                SizedBox(height: 30,),
+                // SizedBox(height: 24,),
                 GridView.builder(
                 shrinkWrap: true ,
                 primary: false ,
                 itemCount: 17,
                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                  crossAxisCount: 2,
-                 crossAxisSpacing : 20 ,
-                 mainAxisSpacing: 20 ,
+                 crossAxisSpacing : 0 ,
+                 mainAxisSpacing: 0 ,
                  childAspectRatio  : MediaQuery.of(context).size.width /
                (MediaQuery.of(context).size.width * 1.5 ),
                  
@@ -225,7 +229,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 // BottomNavCubit.get(context).setWarehouseIndex(1);
               },
               child:Container(
-                        margin:EdgeInsets.all(2),
+                        margin:EdgeInsets.fromLTRB(12, 12, 12, 12),
                         width: 100,
                         // height: 180,
                         decoration: BoxDecoration(
@@ -239,7 +243,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         offset: Offset(  0.5,  0.5,),) ],),
                         child: Stack(children: [
                          Padding(
-                           padding: const EdgeInsets.all(8.0),
+                           padding: const EdgeInsets.all(12.0),
                            child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -256,7 +260,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                 CustomText(text: "Text",color: AppUI.greyColor, textDecoration: TextDecoration.lineThrough)
                               ],),
                             SizedBox(height: 5,),
-                            CustomButton(text: "Add" ,fontSize: 12,)
+                            CustomButton(text: "Add".tr() ,fontSize: 12,)
 
                              
 
@@ -269,7 +273,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                               SizedBox(width: 5,),
                               Image.asset("${AppUI.imgPath}Mask Group 461.png",height: 10,width: 10),
                               SizedBox(width: 5,),
-                              CustomText(text: "Save 20%", fontSize: 10,color: AppUI.errorColor,),
+                              CustomText(text: "Save 20%".tr(), fontSize: 10,color: AppUI.errorColor,),
                               SizedBox(width: 5,)
                              ],),
                              decoration: BoxDecoration(

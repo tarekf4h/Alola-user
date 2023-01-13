@@ -1,5 +1,6 @@
 import 'package:adelco_user/shared/components.dart';
 import 'package:adelco_user/utilities/app_ui.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,7 +18,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: customAppBar(
-            title: "Order status", elevation: 0.5, centerTitle: true),
+            title: "Order status".tr(), elevation: 0.5, centerTitle: true),
         body: ListView(
           children: [
             Container(
@@ -55,7 +56,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                        text: "Estimated time of arrival",
+                        text: "Estimated time of arrival".tr(),
                         fontSize: 12,
                         color: AppUI.blackColor,
                       ),
@@ -85,7 +86,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                        text: "Order number",
+                        text: "Order number".tr(),
                         color: AppUI.greyColor,
                         fontSize: 10,
                       ),
@@ -100,7 +101,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                          text: "Order status",
+                          text: "Order status".tr(),
                           color: AppUI.greyColor,
                           fontSize: 10),
                       Container(
@@ -123,7 +124,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                          text: "Delivery location",
+                          text: "Delivery location".tr(),
                           color: AppUI.greyColor,
                           fontSize: 10),
                       CustomText(
@@ -137,7 +138,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                          text: "Number of products",
+                          text: "Number of products".tr(),
                           color: AppUI.greyColor,
                           fontSize: 10),
                       CustomText(
@@ -151,7 +152,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                          text: "Total", color: AppUI.greyColor, fontSize: 10),
+                          text: "Total".tr(), color: AppUI.greyColor, fontSize: 10),
                       CustomText(
                           text: "text", color: AppUI.blackColor, fontSize: 10),
                     ],
@@ -223,7 +224,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomText(
-                              text: "Order verification",
+                              text: "Order verification".tr(),
                               fontSize: 16,
                               color: AppUI.blackColor,
                               fontWeight: FontWeight.w600,
@@ -246,7 +247,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomText(
-                              text: "Order processing",
+                              text: "Order processing".tr(),
                               fontSize: 16,
                               color: AppUI.blackColor,
                               fontWeight: FontWeight.w600,
@@ -269,7 +270,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomText(
-                              text: "On the way to you",
+                              text: "On the way to you".tr(),
                               fontSize: 16,
                               color: AppUI.blackColor,
                               fontWeight: FontWeight.w600,
@@ -292,7 +293,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomText(
-                              text: "Delivered",
+                              text: "Delivered".tr(),
                               fontSize: 16,
                               color: AppUI.blackColor,
                               fontWeight: FontWeight.w600,

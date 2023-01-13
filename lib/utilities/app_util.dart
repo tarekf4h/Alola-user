@@ -10,7 +10,7 @@ import '../shared/components.dart';
 import 'app_ui.dart';
 
 class AppUtil{
-
+static String Lang = "en";
   static double responsiveHeight (context)=> MediaQuery.of(context).size.height;
   static double responsiveWidth (context)=> MediaQuery.of(context).size.width;
   static mainNavigator (context,screen)=> Navigator.of(context).push(MaterialPageRoute(builder: (context) => screen));
@@ -116,4 +116,24 @@ static errorToast(context,msg){
         ),
       ); });
   }
+  static bottomSheet(context,Widget view)async{
+    showModalBottomSheet(
+            isScrollControlled: true,
+            shape: const RoundedRectangleBorder(
+             borderRadius: BorderRadius.only(topLeft: Radius.circular(20) , topRight: Radius.circular(20)),),
+            context: context,
+            builder: (BuildContext context) {
+              return view;
+          //     return BottomSheet(
+          //       shape: RoundedRectangleBorder(
+          //    borderRadius: BorderRadius.only(topLeft: Radius.circular(20) , topRight: Radius.circular(20)),),
+          //     onClosing: () {},
+          //     builder: (BuildContext context) {
+              
+          // return StatefulBuilder(builder: (BuildContext context, StateSetter mystate) {
+          // return view;
+          // });});
+          });
+
+}
 }

@@ -20,7 +20,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: "Add a new location",centerTitle: true , elevation: 0.5),
+      appBar: customAppBar(title: "Add a new delivery location".tr(),centerTitle: true , elevation: 0.5),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
         child: ListView(

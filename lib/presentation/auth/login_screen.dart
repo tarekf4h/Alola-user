@@ -33,77 +33,74 @@ class _LoginScreenState extends State<LoginScreen> {
           return Form(
             child:
             Padding(
-              padding: const EdgeInsets.only(left: 50 , right: 50 ),
-              child: Center(
-                child: SingleChildScrollView(
-                  child:
-                   Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Image.asset(
-                     '${AppUI.imgPath}logoMain.png',
-                     width: 150,
-                     height: 200,),
-                     SizedBox(height: 20,),
-                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [ CustomText(text: "welcomeTo".tr() ,fontSize: 22,color: AppUI.blackColor,),SizedBox(width: 5,),CustomText(text: "adelco".tr() ,color: AppUI.mainColor,fontSize: 22,)],),
-                     SizedBox(height: 10,),
-                     CustomText(text: "login".tr() ,fontSize: 22,color: AppUI.blackColor,),
-                     SizedBox(height: 10,),
-                     Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "phone".tr() ,)),
-                     SizedBox(height: 20,),
-                     Container(width: 300,child: CustomInput(obscureText: true ,controller: TextEditingController(), textInputType: TextInputType.phone , lable: "pass".tr(),)),
-                     SizedBox(height: 10,),
-                     Container(
-                      width: 300,
-                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                        InkWell(
-                          child: CustomText(text: "forgotPass".tr() , fontWeight: FontWeight.w700,color: AppUI.blackColor , textDecoration: TextDecoration.underline,),
-                          onTap: () {
-                              AppUtil.mainNavigator(context, const PhoneScreen());
-                          }
-                       ,),
-                        ],),
-                     ),
-                     SizedBox(height: 20,),
-                     Container(width: 300,
-                     child: CustomButton(text:  "Login".tr() , radius: 20 ,onPressed: () {
-                       AppUtil.replacementNavigator(context, BottomNavTabsScreen());
-                     },),),
-                     SizedBox(height: 10,),
-                     Container(
-                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [CustomText(text:"newAdelco".tr() ,fontSize: 12,color: AppUI.greyColor,),
-                      SizedBox(width: 5,),
-                       InkWell(
-                          child: Expanded(child:  CustomText(text: "createAccount".tr(), fontWeight: FontWeight.w700,fontSize: 12,color: AppUI.blackColor , textDecoration: TextDecoration.underline,)),
-                          onTap: () {
-                            //  AppUtil.mainNavigator(context, const SignupScreen());
-            showModalBottomSheet(
-            isScrollControlled: true,
-            shape: RoundedRectangleBorder(
-             borderRadius: BorderRadius.only(topLeft: Radius.circular(20) , topRight: Radius.circular(20)),),
-            context: context,
-            builder: (BuildContext context) {
-              return BottomSheet(
-              onClosing: () {},
-              builder: (BuildContext context) {
-              var type = 0 ;
-          return StatefulBuilder(builder: (BuildContext context, StateSetter mystate) {
-          return SizedBox(
-                height: AppUtil.responsiveHeight(context)*0.75,
+              padding: const EdgeInsets.only(left: 16 , right: 16 ),
+              child: SingleChildScrollView(
                 child:
-                 Scaffold(
+                 Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 24,),
+                    Image.asset(
+                   '${AppUI.imgPath}logoMain.png',
+                   width: 120,
+                   height: 120,),
+                   SizedBox(height: 16,),
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [ CustomText(text: "welcomeTo".tr() ,fontSize: 28,color: AppUI.blackColor,),SizedBox(width: 5,),CustomText(text: "adelco".tr() ,color: AppUI.mainColor,fontSize: 28,)],),
+                   SizedBox(height: 8,),
+                   CustomText(text: "login".tr() ,fontSize: 24,color: AppUI.blackColor,fontWeight: FontWeight.bold,),
+                   SizedBox(height: 24,),
+                   Container(child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "Phone".tr() ,)),
+                   SizedBox(height: 24,),
+                   Container(child: CustomInput(obscureText: true ,controller: TextEditingController(), textInputType: TextInputType.phone , lable: "pass".tr(),)),
+                   SizedBox(height: 8,),
+                   Container(
+                    width: 300,
+                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                      InkWell(
+                        child: CustomText(text: "forgotPass".tr() , fontWeight: FontWeight.w700,color: AppUI.blackColor , textDecoration: TextDecoration.underline,),
+                        onTap: () {
+                            AppUtil.mainNavigator(context, const PhoneScreen());
+                        }
+                     ,),
+                      ],),
+                   ),
+                   SizedBox(height: 36,),
+                   Container(
+                   child: CustomButton(text:  "Login".tr() ,height: 20, radius: 36 ,onPressed: () {
+                     AppUtil.replacementNavigator(context, BottomNavTabsScreen());
+                   },),),
+                   SizedBox(height: 16,),
+                   Container(
+                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [CustomText(text:"newAdelco".tr() ,fontSize: 12,color: AppUI.greyColor,),
+                    SizedBox(width: 5,),
+                     InkWell(
+                        child:  CustomText(text: "createAccount".tr(), fontWeight: FontWeight.w700,fontSize: 12,color: AppUI.blackColor , textDecoration: TextDecoration.underline,),
+                        onTap: () {
+                          //  AppUtil.mainNavigator(context, const SignupScreen());
+                          var type = 0 ;
+                          AppUtil.bottomSheet(context, 
+                          StatefulBuilder(builder: (BuildContext context, StateSetter mystate) {
+                         return  Container(
+              height: AppUtil.responsiveHeight(context)*0.80,
+              decoration: BoxDecoration( color:Colors.white ,borderRadius: BorderRadius.only(topLeft: Radius.circular(20) , topRight:Radius.circular(20) ) ),
+              child:
+               Padding(
+                 padding: const EdgeInsets.only(top: 8),
+                 child: Scaffold(
                   backgroundColor: Colors.transparent,
                   appBar: AppBar(
                    backgroundColor: Colors.transparent,
-                  title: CustomText(text: "createAccount".tr() , color: AppUI.blackColor , fontSize: 20,), 
+                  title: CustomText(text: "createAccount".tr() , color: AppUI.blackColor , fontSize: 18,fontWeight: FontWeight.bold,), 
                   elevation: 0 ,
                   leadingWidth: 50,
+                  centerTitle: true,
                   leading:InkWell(onTap: () {
                   Navigator.pop(context, true); 
                   },
@@ -115,16 +112,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   body: Center(
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
+                      child: ListView(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        // mainAxisSize: MainAxisSize.min,
                         children:[
+                          SizedBox(height: 8,),
                           Container(
                             decoration:
                              BoxDecoration(
                              color: AppUI.whiteColor,
                              border: Border.all(color: type == 1 ? AppUI.mainColor:AppUI.shimmerColor),
-                             borderRadius: BorderRadius.circular(8),) ,
+                             borderRadius: BorderRadius.circular(24),) ,
 
                             child: InkWell(child: Container(height:150 , width: 300 ,child: Center(child: Column(
                               children: [
@@ -136,18 +134,21 @@ class _LoginScreenState extends State<LoginScreen> {
                               onTap: () {
                               print("c");
                                type = 1;
+                              //  setState(() {
+                              //    type = 1;
+                              //  });
                               mystate(() {
                                 type = 1;
                               });
                             },),
                           ) ,
-                           SizedBox(height: 10,) ,
+                           SizedBox(height: 16,) ,
                           Container(
                             decoration:
                              BoxDecoration(
                              color: AppUI.whiteColor,
                              border: Border.all(color: type == 2 ? AppUI.mainColor:AppUI.shimmerColor),
-                             borderRadius: BorderRadius.circular(8),) ,
+                             borderRadius: BorderRadius.circular(24),) ,
                             child: InkWell(child: Container(height:150 , width: 300 ,child: Center(child: Column(
                               children: [
                                 Image.asset("${AppUI.imgPath}Layer 2.png",height: 100,width: 100),
@@ -158,37 +159,141 @@ class _LoginScreenState extends State<LoginScreen> {
                               onTap: () {
                                print("g");
                                type = 2;
+                              //  setState(() {
+                              //   type = 2; 
+                              //  });
                               mystate(() {
                                type = 2;
                               });
-                            },),
+                          },),
                           ),
-                          SizedBox(height: 20,) ,
-                          CustomButton(text:  "Confirm".tr() , radius: 20 , onPressed: () {
+
+                          SizedBox(height: 24,) ,
+                          CustomButton(text:  "Confirm".tr() , radius: 36 , height: 15, onPressed: () {
                             if (type == 1) {
                               AppUtil.replacementNavigator(context, const SignupScreen());
                             }else if (type == 2) {
                               AppUtil.replacementNavigator(context, const SignupCompanyScreen());
                             }
                           },),
+                          SizedBox(height: 16,) ,
                         ],
                       ),
                     ),
                   ),
-                ),
-              );
-
-          });});
-              
-            }
-            );
-            
-                          }
-                       ,)],
-                     ),)
-                     ],
-                ),),
               ),
+               ),
+              );}));
+          //   showModalBottomSheet(
+          //   isScrollControlled: true,
+          //   shape: RoundedRectangleBorder(
+          //    borderRadius: BorderRadius.only(topLeft: Radius.circular(20) , topRight: Radius.circular(20)),),
+          //   context: context,
+          //   builder: (BuildContext context) {
+          //     return BottomSheet(
+          //     onClosing: () {},
+          //     builder: (BuildContext context) {
+          //     var type = 0 ;
+          // return StatefulBuilder(builder: (BuildContext context, StateSetter mystate) {
+          // return Container(
+          //     height: AppUtil.responsiveHeight(context)*0.75,
+          //     decoration: BoxDecoration( color:Colors.transparent ,borderRadius: BorderRadius.only(topLeft: Radius.circular(20) , topRight:Radius.circular(20) ) ),
+          //     child:
+          //      Padding(
+          //        padding: const EdgeInsets.only(top: 8),
+          //        child: Scaffold(
+          //         backgroundColor: Colors.transparent,
+          //         appBar: AppBar(
+          //          backgroundColor: Colors.transparent,
+          //         title: CustomText(text: "createAccount".tr() , color: AppUI.blackColor , fontSize: 20,), 
+          //         elevation: 0 ,
+          //         leadingWidth: 50,
+          //         centerTitle: true,
+          //         leading:InkWell(onTap: () {
+          //         Navigator.pop(context, true); 
+          //         },
+          //         child: Padding(
+          //           padding: const EdgeInsets.all(10.0),
+          //           child: Image.asset("${AppUI.imgPath}closePopup.png",height: 15,width: 15),
+          //         )
+          //         )),
+          //         body: Center(
+          //           child: Padding(
+          //             padding: const EdgeInsets.all(20.0),
+          //             child: Column(
+          //               mainAxisAlignment: MainAxisAlignment.center,
+          //               mainAxisSize: MainAxisSize.min,
+          //               children:[
+          //                 Container(
+          //                   decoration:
+          //                    BoxDecoration(
+          //                    color: AppUI.whiteColor,
+          //                    border: Border.all(color: type == 1 ? AppUI.mainColor:AppUI.shimmerColor),
+          //                    borderRadius: BorderRadius.circular(8),) ,
+
+          //                   child: InkWell(child: Container(height:150 , width: 300 ,child: Center(child: Column(
+          //                     children: [
+          //                       Image.asset("${AppUI.imgPath}Layer 1.png",height: 100,width: 100),
+          //                       SizedBox(height: 10,),
+          //                       CustomText(text: "Create a personal account".tr() , fontSize: 18, color: AppUI.blackColor,)
+          //                     ],
+          //                   )),),
+          //                     onTap: () {
+          //                     print("c");
+          //                      type = 1;
+          //                     mystate(() {
+          //                       type = 1;
+          //                     });
+          //                   },),
+          //                 ) ,
+          //                  SizedBox(height: 10,) ,
+          //                 Container(
+          //                   decoration:
+          //                    BoxDecoration(
+          //                    color: AppUI.whiteColor,
+          //                    border: Border.all(color: type == 2 ? AppUI.mainColor:AppUI.shimmerColor),
+          //                    borderRadius: BorderRadius.circular(8),) ,
+          //                   child: InkWell(child: Container(height:150 , width: 300 ,child: Center(child: Column(
+          //                     children: [
+          //                       Image.asset("${AppUI.imgPath}Layer 2.png",height: 100,width: 100),
+          //                       SizedBox(height: 10,),
+          //                       CustomText(text: "Create a corporate account".tr() , fontSize: 18, color: AppUI.blackColor,)
+          //                     ],
+          //                   )),),
+          //                     onTap: () {
+          //                      print("g");
+          //                      type = 2;
+          //                     mystate(() {
+          //                      type = 2;
+          //                     });
+          //                   },),
+          //                 ),
+          //                 SizedBox(height: 20,) ,
+          //                 CustomButton(text:  "Confirm".tr() , radius: 20 , onPressed: () {
+          //                   if (type == 1) {
+          //                     AppUtil.replacementNavigator(context, const SignupScreen());
+          //                   }else if (type == 2) {
+          //                     AppUtil.replacementNavigator(context, const SignupCompanyScreen());
+          //                   }
+          //                 },),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //     ),
+          //      ),
+          //     );
+
+          // });});
+              
+          //   }
+          //   );
+            
+                        }
+                     ,)],
+                   ),)
+                   ],
+              ),),
             )
           );
             

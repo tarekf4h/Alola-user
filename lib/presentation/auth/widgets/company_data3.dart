@@ -22,37 +22,37 @@ class _CompanyData3State extends State<CompanyData3> {
       child: ListView(
         children: [
          SizedBox(height: 15,),
-         CustomText(text: "The main attachments to accept the applicationt" , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
+         CustomText(text: "The main attachments to accept the applicationt".tr() , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
          SizedBox(height: 15,),
          InkWell(onTap: () {
            
          },
-          child: CustomeCompanyData(mainTitel: "Procurement form with company stamp",),),
+          child: CustomeCompanyData(mainTitel: "Procurement form with company stamp".tr(),),),
          SizedBox(height: 10,),
          InkWell(onTap: () {
            
          },
-          child: CustomeCompanyData(mainTitel: "Photocopy Commercial registration",),),
+          child: CustomeCompanyData(mainTitel: "Photocopy Commercial registration".tr(),),),
           SizedBox(height: 10,),
           InkWell(onTap: () {
            
          },
-          child: CustomeCompanyData(mainTitel: "Bank statement for 6 months",),),
+          child: CustomeCompanyData(mainTitel: "Bank statement for 6 months".tr(),),),
           SizedBox(height: 10,),
           InkWell(onTap: () {
            
          },
-          child: CustomeCompanyData(mainTitel: "Photocopy of tax certificate",),),
+          child: CustomeCompanyData(mainTitel: "Photocopy of tax certificate".tr(),),),
           SizedBox(height: 10,),
           InkWell(onTap: () {
            
          },
-          child: CustomeCompanyData(mainTitel: "Photocopy of the identity of the owner or the owners",),),
+          child: CustomeCompanyData(mainTitel: "Photocopy of the identity of the owner or the owners".tr(),),),
           SizedBox(height: 10,),
           InkWell(onTap: () {
            
          },
-          child: CustomeCompanyData(mainTitel: "Photocopy of the national address",),),
+          child: CustomeCompanyData(mainTitel: "Photocopy of the national address".tr(),),),
           SizedBox(height: 15,),
           CustomText(text: "Company location".tr() , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
           SizedBox(height: 15,),

@@ -19,7 +19,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: customAppBar(centerTitle: true , title: "New Password".tr() ),
+     appBar: customAppBar(centerTitle: true , title: "rePass".tr() ),
       body: BlocBuilder<AuthCubit,AuthState>(
         builder: (context, state) {
           var cubit = AuthCubit.get(context);
@@ -48,7 +48,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                      SizedBox(height: 30,),
                      Container(width: 300,child: CustomInput(obscureText: true ,controller: TextEditingController(), textInputType: TextInputType.text , lable: "pass".tr(),)),
                      SizedBox(height: 10,),
-                     Container(width: 300,child: CustomInput(obscureText: true ,controller: TextEditingController(), textInputType: TextInputType.text , lable: "rePass".tr(),)),
+                     Container(width: 300,child: CustomInput(obscureText: true ,controller: TextEditingController(), textInputType: TextInputType.text , lable: "Confirm New Password".tr(),)),
                      SizedBox(height: 30,),
                      Container(width: 300,
                      child: CustomButton(text: "send".tr() , radius: 20),),

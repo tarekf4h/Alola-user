@@ -10,7 +10,8 @@ import '../../utilities/app_ui.dart';
 import '../../utilities/app_util.dart';
 
 class AllCardScreen extends StatefulWidget {
-  const AllCardScreen({Key? key}) : super(key: key);
+  final int? typeView;
+  const AllCardScreen({Key? key , this.typeView}) : super(key: key);
 
   @override
   State<AllCardScreen> createState() => _AllCardScreenState();
@@ -21,7 +22,7 @@ class _AllCardScreenState extends State<AllCardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: "Payment" , elevation: 0.5 , centerTitle: true),
+      appBar: customAppBar(title:  "Payment".tr() , elevation: 0.5 , centerTitle: true),
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -95,10 +96,10 @@ class _AllCardScreenState extends State<AllCardScreen> {
       ],),
       bottomNavigationBar:  Container(
         decoration: BoxDecoration( border:Border.all(color: AppUI.shimmerColor ,width: 0.5) ),
-        height: 70,
+        height:  70,
         width: AppUtil.responsiveWidth(context),
         child: Padding(padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-        child: Center(child: CustomButton(text: "Payment confirmation" , radius: 15,),)
+        child: Center(child: CustomButton(text: "Payment confirmation".tr() , radius: 15,),)
         )
         ) ,
 

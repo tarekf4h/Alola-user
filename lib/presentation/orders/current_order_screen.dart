@@ -22,7 +22,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: "Orders", elevation: 0.5, centerTitle: true),
+      appBar: customAppBar(title: "Orders".tr(), elevation: 0.5, centerTitle: true),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: ListView(
@@ -33,7 +33,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomText(
-                    text: "Products",
+                    text: "Products".tr(),
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                     color: AppUI.blackColor,
@@ -77,7 +77,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
               ),
             ),
             Container(
-              height: 180,
+              height: 138,
               child: GridView.builder(
                 shrinkWrap: false,
                 primary: false,
@@ -91,8 +91,8 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    width: 90,
-                    height: 170,
+                    width: 96,
+                    height: 138,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: AppUI.whiteColor,
@@ -103,12 +103,12 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                           height: 10,
                         ),
                         Image.asset("${AppUI.imgPath}milk.png",
-                            height: 80, width: 80),
+                            height: 70, width: 70),
                         SizedBox(
                           height: 10,
                         ),
                         Container(
-                            margin: EdgeInsets.all(5.0),
+                            // margin: EdgeInsets.all(5.0),
                             child: Center(
                                 child: CustomText(
                               text: "1",
@@ -131,12 +131,12 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+              padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomText(
-                    text: "Order status",
+                    text: "Order status".tr(),
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                     color: AppUI.blackColor,
@@ -162,7 +162,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: AppUI.shimmerColor)),
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Column(
                 children: [
                   Stack(
@@ -192,7 +192,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                        text: "Estimated time of arrival",
+                        text: "Estimated time of arrival".tr(),
                         fontSize: 12,
                         color: AppUI.blackColor,
                       ),
@@ -219,41 +219,41 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                   fontWeight: FontWeight.w700,
                   color: AppUI.blackColor,
                 ),
-                InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                        isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20)),
-                        ),
-                        context: context,
-                        builder: (BuildContext context) {
-                          return BottomSheet(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20)),
-                              ),
-                              onClosing: () {},
-                              builder: (BuildContext context) {
-                                var type = 0;
-                                return StatefulBuilder(builder:
-                                    (BuildContext context,
-                                        StateSetter mystate) {
-                                  return ProductsBottomSheet();
-                                });
-                              });
-                        });
-                  },
-                  child: CustomText(
-                    text: "Show".tr(),
-                    fontSize: 14,
-                    color: AppUI.mainColor,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {
+                //     showModalBottomSheet(
+                //         isScrollControlled: true,
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.only(
+                //               topLeft: Radius.circular(20),
+                //               topRight: Radius.circular(20)),
+                //         ),
+                //         context: context,
+                //         builder: (BuildContext context) {
+                //           return BottomSheet(
+                //               shape: RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.only(
+                //                     topLeft: Radius.circular(20),
+                //                     topRight: Radius.circular(20)),
+                //               ),
+                //               onClosing: () {},
+                //               builder: (BuildContext context) {
+                //                 var type = 0;
+                //                 return StatefulBuilder(builder:
+                //                     (BuildContext context,
+                //                         StateSetter mystate) {
+                //                   return ProductsBottomSheet();
+                //                 });
+                //               });
+                //         });
+                //   },
+                //   child: CustomText(
+                //     text: "Show".tr(),
+                //     fontSize: 14,
+                //     color: AppUI.mainColor,
+                //     fontWeight: FontWeight.w700,
+                //   ),
+                // ),
               ],
             ),
             SizedBox(
@@ -263,7 +263,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: AppUI.shimmerColor)),
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: EdgeInsets.symmetric(horizontal: 16 , vertical: 16),
               // margin: EdgeInsets.symmetric(horizontal: 15) ,
               child: Row(
                 children: [
@@ -274,9 +274,9 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                         height: 10,
                       ),
                       CustomText(
-                        text: "Order number",
+                        text: "Order number".tr(),
                         color: AppUI.greyColor,
-                        fontSize: 10,
+                        fontSize: 12,
                         padding:
                               EdgeInsets.symmetric( vertical: 5)
                       ),
@@ -284,9 +284,9 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                         height: 8,
                       ),
                       CustomText(
-                        text: "Order status",
+                        text: "Order status".tr(),
                         color: AppUI.greyColor,
-                        fontSize: 10,
+                        fontSize: 12,
                         padding:
                               EdgeInsets.symmetric( vertical: 5)
                       ),
@@ -294,9 +294,9 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                         height: 8,
                       ),
                       CustomText(
-                        text: "Delivery location",
+                        text: "Delivery location".tr(),
                         color: AppUI.greyColor,
-                        fontSize: 10,
+                        fontSize: 12,
                         padding:
                               EdgeInsets.symmetric( vertical: 5)
                       ),
@@ -304,9 +304,9 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                         height: 8,
                       ),
                       CustomText(
-                        text: "Delegate name",
+                        text: "Delegate name".tr(),
                         color: AppUI.greyColor,
-                        fontSize: 10,
+                        fontSize: 12,
                         padding:
                               EdgeInsets.symmetric( vertical: 5)
                       ),
@@ -314,9 +314,9 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                         height: 8,
                       ),
                       CustomText(
-                        text: "Phone",
+                        text: "Phone".tr(),
                         color: AppUI.greyColor,
-                        fontSize: 10,
+                        fontSize: 12,
                         padding:
                               EdgeInsets.symmetric( vertical: 5)
                       ),
@@ -337,7 +337,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                       CustomText(
                         text: "Text",
                         color: AppUI.blackColor,
-                        fontSize: 10,
+                        fontSize: 14,
                         padding:
                               EdgeInsets.symmetric( vertical: 5)
                       ),
@@ -354,14 +354,14 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                               child: CustomText(
                                   text: "Text",
                                   color: AppUI.mainColor,
-                                  fontSize: 10))),
+                                  fontSize: 14))),
                       SizedBox(
                         height: 8,
                       ),
                       CustomText(
                         text: "Text",
                         color: AppUI.blackColor,
-                        fontSize: 10,
+                        fontSize: 14,
                         padding:
                               EdgeInsets.symmetric( vertical: 5)
                       ),
@@ -371,7 +371,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                       CustomText(
                         text: "Text",
                         color: AppUI.blackColor,
-                        fontSize: 10,
+                        fontSize: 14,
                         padding:
                               EdgeInsets.symmetric( vertical: 5)
                       ),
@@ -382,7 +382,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                         CustomText(
                         text: "Text",
                         color: AppUI.blackColor,
-                        fontSize: 10,
+                        fontSize: 14,
                         padding:
                               EdgeInsets.symmetric( vertical: 5)
                       ),
@@ -427,7 +427,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
               text: "Bill Summary".tr(),
               color: AppUI.blackColor,
               fontSize: 16,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.bold,
             ),
             SizedBox(
               height: 20,
@@ -459,7 +459,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                        text: "Delivery",
+                        text: "Delivery".tr(),
                         color: AppUI.blackColor,
                       ),
                       CustomText(text: "text", color: AppUI.blackColor),
@@ -472,7 +472,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                        text: "Tax",
+                        text: "Tax".tr(),
                         color: AppUI.blackColor,
                       ),
                       CustomText(text: "text", color: AppUI.blackColor),
@@ -485,7 +485,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                        text: "promo code",
+                        text: "Promo code".tr(),
                         color: AppUI.blackColor,
                       ),
                       CustomText(text: "text", color: AppUI.errorColor),
@@ -498,7 +498,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                        text: "Total",
+                        text: "Total".tr(),
                         color: AppUI.blackColor,
                         fontSize: 16,
                       ),
@@ -514,7 +514,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
               height: 10,
             ),
             CustomButton(
-              text: "Order cancellation",
+              text: "Order cancellation".tr(),
               color: AppUI.errorColor.withAlpha(600),
               textColor: AppUI.errorColor,
               radius: 20,

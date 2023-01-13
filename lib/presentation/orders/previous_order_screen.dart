@@ -1,4 +1,6 @@
 import 'package:adelco_user/presentation/orders/products_bottom_sheet.dart';
+import 'package:adelco_user/presentation/orders/rating_bottom_sheet.dart';
+import 'package:adelco_user/presentation/orders/statuses_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import '../../shared/components.dart';
 import '../../utilities/app_ui.dart';
+import '../../utilities/app_util.dart';
 import '../cart/cart_bottom_sheet.dart';
 
 class PreviousOrderScreen extends StatefulWidget {
@@ -23,15 +26,8 @@ class _PreviousOrderScreenState extends State<PreviousOrderScreen> {
       body: Padding(padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
       child: ListView(children: [
         SizedBox(height: 10,),
-        CustomAarrowContainer(title: "Tell us your rating to improve the service level".tr(),),
-        SizedBox(height: 20,),
-        //  CustomText(text: "Order details".tr() , color: AppUI.blackColor, fontSize: 16,fontWeight: FontWeight.w400,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomText(text: "Order details".tr()  ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
-                  InkWell(onTap: () {
-           showModalBottomSheet(
+        InkWell(child:CustomAarrowContainer(title: "Tell us your rating to improve the service level".tr(),),onTap: () {
+          showModalBottomSheet(
             isScrollControlled: true,
             shape: RoundedRectangleBorder(
              borderRadius: BorderRadius.only(topLeft: Radius.circular(20) , topRight: Radius.circular(20)),),
@@ -44,8 +40,19 @@ class _PreviousOrderScreenState extends State<PreviousOrderScreen> {
               builder: (BuildContext context) {
               var type = 0 ;
           return StatefulBuilder(builder: (BuildContext context, StateSetter mystate) {
-          return ProductsBottomSheet();
+          return RatingottomSheet();
           });});});
+        },),
+        
+        SizedBox(height: 20,),
+        //  CustomText(text: "Order details".tr() , color: AppUI.blackColor, fontSize: 16,fontWeight: FontWeight.w400,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(text: "Order details".tr()  ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
+                  InkWell(onTap: () {
+                    AppUtil.mainNavigator(context, StatusesScreen());
+           
                  },
                  child: CustomText(text: "Show".tr() , fontSize: 14,color: AppUI.mainColor,fontWeight: FontWeight.w700,) ,
                  ),

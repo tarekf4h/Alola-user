@@ -21,7 +21,7 @@ class _CompanyData2State extends State<CompanyData2> {
       child: ListView(
         children: [
          SizedBox(height: 15,),
-         CustomText(text: "Banks dealing with it" , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
+         CustomText(text: "Banks dealing with it".tr() , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
          SizedBox(height: 15,),
          Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.text , lable: "Bank name".tr() ,)),
          SizedBox(height: 10,),
@@ -29,7 +29,7 @@ class _CompanyData2State extends State<CompanyData2> {
          SizedBox(height: 10,),
          Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "Account number".tr(),)),
          SizedBox(height: 15,),
-         CustomText(text: "Commercial references or suppliers" , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
+         CustomText(text: "Commercial references or suppliers".tr() , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
          SizedBox(height: 15,),
          Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.text , lable: "Company".tr(),)),
          SizedBox(height: 10,),
@@ -39,7 +39,7 @@ class _CompanyData2State extends State<CompanyData2> {
          SizedBox(height: 10,),
          Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "Tax Number".tr() ,)),
          SizedBox(height: 15,),
-         CustomText(text: "The manager or directors" , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
+         CustomText(text: "The manager or directors".tr() , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
          SizedBox(height: 15,),
          Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.text , lable: "Name".tr() ,)),
          SizedBox(height: 10,),

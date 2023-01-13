@@ -43,10 +43,10 @@ class _PhoneScreenState extends State<PhoneScreen> {
                       width: 300,
                        child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [ CustomText(text: "forgotPass".tr() ,fontSize: 22,color: AppUI.blackColor,),SizedBox(height: 20,),CustomText(text: "password reset code".tr()  ,textAlign: TextAlign.center,color: AppUI.greyColor,fontSize: 14,)],),
+                        children: [ CustomText(text: "forgotPass".tr() ,fontSize: 22,color: AppUI.blackColor,),SizedBox(height: 20,),CustomTextCenter(text: "password reset code".tr()  ,color: AppUI.greyColor,fontSize: 14,)],),
                      ),
                      SizedBox(height: 20,),
-                     Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "phoneNumber".tr() ,)),
+                     Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "Phone".tr() ,)),
 
                      SizedBox(height: 20,),
                      InkWell(

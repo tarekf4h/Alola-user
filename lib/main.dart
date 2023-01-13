@@ -29,9 +29,9 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
      runApp(
     EasyLocalization(
-        supportedLocales: const [Locale('en'), Locale('en')],
+        supportedLocales: const [Locale('ar'), Locale('en')],
         path: 'lang',
-        fallbackLocale: const Locale('en'),
+        fallbackLocale: const Locale('ar'),
         child: const MyApp()),
   );
   
@@ -61,11 +61,12 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: AppUI.whiteColor,
           appBarTheme:  AppBarTheme(color: Colors.white,iconTheme: IconThemeData(color: AppUI.blackColor)),
           primarySwatch: AppUI.mainColor,
-          textTheme: GoogleFonts.montserratTextTheme(Theme.of(context).textTheme).copyWith(
-            bodyText1: GoogleFonts.montserrat(textStyle: Theme.of(context).textTheme.bodyText1),
+          textTheme: GoogleFonts.tajawalTextTheme(Theme.of(context).textTheme).copyWith(
+            bodyText1: GoogleFonts.tajawal(textStyle: Theme.of(context).textTheme.bodyText1)
+            // (textStyle: Theme.of(context).textTheme.bodyText1),
           ),
         ),
-        home:  RatingottomSheet(),
+        home:  SplashScreen(),
       ),
     );
   }

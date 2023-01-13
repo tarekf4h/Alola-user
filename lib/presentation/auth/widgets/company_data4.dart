@@ -20,13 +20,13 @@ class _CompanyData4State extends State<CompanyData4> {
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: ListView(
         children: [
-          CustomText(text: "Account details" , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
+          CustomText(text: "Account details".tr() , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
           SizedBox(height: 10,),
           Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "Phone".tr() ,)),
           SizedBox(height: 10,),
-          Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.text , lable: "Password".tr(),obscureText:true ,)),
+          Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.text , lable: "pass".tr(),obscureText:true ,)),
           SizedBox(height: 10,),
-          Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "Confirm password".tr(),obscureText:true)),
+          Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "rePass".tr(),obscureText:true)),
          
          
         ],

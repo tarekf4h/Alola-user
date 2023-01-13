@@ -25,7 +25,7 @@ class _OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: "Order details", centerTitle: true , elevation: 0.5),
+      appBar: customAppBar(title: "Order details".tr(), centerTitle: true , elevation: 0.5),
       body: ListView(
         children: [
            Padding(
@@ -33,7 +33,7 @@ class _OrderConfirmationScreenState extends State<OrderConfirmationScreen> {
              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomText(text: "Products" ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
+                  CustomText(text: "Products".tr() ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
                   InkWell(onTap: () {
 showModalBottomSheet(
             isScrollControlled: true,
@@ -103,7 +103,7 @@ showModalBottomSheet(
             Padding(padding: EdgeInsets.fromLTRB(10, 20, 10, 20),child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomText(text: "Delivery location",fontSize: 16,fontWeight: FontWeight.w400,color: AppUI.blackColor,),
+                CustomText(text: "Delivery location".tr(),fontSize: 16,fontWeight: FontWeight.w400,color: AppUI.blackColor,),
                 SizedBox(height: 10,),
                 InkWell(child:  SelectLocationContainer(), onTap: (){
                   showModalBottomSheet(
@@ -124,7 +124,7 @@ showModalBottomSheet(
 
                 },),
                 SizedBox(height: 10,),
-                CustomText(text: "Delivery time",fontSize: 16,fontWeight: FontWeight.w400,color: AppUI.blackColor,),
+                CustomText(text: "Delivery time".tr(),fontSize: 16,fontWeight: FontWeight.w400,color: AppUI.blackColor,),
                 SizedBox(height: 10,),
                 Container(
                   height: 45,
@@ -176,11 +176,11 @@ showModalBottomSheet(
           CustomText(text: "Evening time".tr() , color: AppUI.blackColor, fontSize: 12,),
          ],),),
          SizedBox(height: 10,),
-         CustomText(text: "Promo code",fontSize: 16,fontWeight: FontWeight.w400,color: AppUI.blackColor,),
+         CustomText(text: "Promo code".tr(),fontSize: 16,fontWeight: FontWeight.w400,color: AppUI.blackColor,),
          SizedBox(height: 10,),
-         CustomInput(controller: TextEditingController(), textInputType: TextInputType.text ,lable: "Promo code", prefixIcon: Container(padding: EdgeInsets.all(13),child: SvgPicture.asset("${AppUI.iconPath}ticket.svg")) ,),
+         CustomInput(controller: TextEditingController(), textInputType: TextInputType.text ,lable: "Promo code".tr(), prefixIcon: Container(padding: EdgeInsets.all(13),child: SvgPicture.asset("${AppUI.iconPath}ticket.svg")) ,),
          SizedBox(height: 10,),
-                CustomText(text: "Payment type",fontSize: 16,fontWeight: FontWeight.w400,color: AppUI.blackColor,),
+                CustomText(text: "Payment type".tr(),fontSize: 16,fontWeight: FontWeight.w400,color: AppUI.blackColor,),
                 SizedBox(height: 10,),
                 Container(
                   height: 45,
@@ -232,9 +232,9 @@ showModalBottomSheet(
           CustomText(text: "Online payment".tr() , color: AppUI.blackColor, fontSize: 12,),
          ],),),
           SizedBox(height: 10,),
-          CustomText(text: "Note for delivery",fontSize: 16,fontWeight: FontWeight.w400,color: AppUI.blackColor,),
+          CustomText(text: "Note for delivery".tr(),fontSize: 16,fontWeight: FontWeight.w400,color: AppUI.blackColor,),
           SizedBox(height: 10,),
-          CustomInput(controller: TextEditingController(), textInputType: TextInputType.text ,lable: "Note" ,maxLines: 5,),
+          CustomInput(controller: TextEditingController(), textInputType: TextInputType.text ,lable: "Note".tr() ,maxLines: 5,),
           SizedBox(height: 10,), 
           CustomText(text: "Bill Summary".tr() , color: AppUI.blackColor, fontSize: 16,fontWeight: FontWeight.w400,),
                       SizedBox(height: 10,),
@@ -249,7 +249,7 @@ showModalBottomSheet(
              Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(text: "Delivery" , color: AppUI.blackColor,),
+                CustomText(text: "Delivery".tr() , color: AppUI.blackColor,),
                 CustomText(text: "text" , color: AppUI.blackColor),
               ],
             ),
@@ -257,7 +257,7 @@ showModalBottomSheet(
              Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(text: "Tax" , color: AppUI.blackColor,),
+                CustomText(text: "Tax".tr() , color: AppUI.blackColor,),
                 CustomText(text: "text" , color: AppUI.blackColor),
               ],
             ),
@@ -265,7 +265,7 @@ showModalBottomSheet(
              Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(text: "promo code" , color: AppUI.blackColor,),
+                CustomText(text: "Promo code".tr() , color: AppUI.blackColor,),
                 CustomText(text: "text" , color: AppUI.errorColor),
               ],
             ),
@@ -295,12 +295,12 @@ showModalBottomSheet(
            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(text: "Total" , color: AppUI.blackColor,fontSize: 16,fontWeight: FontWeight.w600,),
+                CustomText(text: "Total".tr() , color: AppUI.blackColor,fontSize: 16,fontWeight: FontWeight.w600,),
                 CustomText(text: "text" , color: AppUI.blackColor,fontSize: 16,fontWeight: FontWeight.w600,),
               ],
             ),
             SizedBox(height: 10,),
-            CustomButton(text: "Order execution" , radius: 15,)
+            CustomButton(text: "Order execution".tr() , radius: 36, height: 17,)
         ],),
         )
         )

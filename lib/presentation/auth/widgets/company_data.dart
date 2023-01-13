@@ -43,7 +43,7 @@ class _CompanyDataState extends State<CompanyData> {
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: ListView(
         children: [
-          CustomText(text: "Company Data" , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
+          CustomText(text: "Company Data".tr() , fontSize: 16, fontWeight: FontWeight.w700,color: AppUI.titleColor,),
           SizedBox(height: 10,),
           Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.text , lable: "Company name".tr() ,)),
           SizedBox(height: 10,),
@@ -51,16 +51,16 @@ class _CompanyDataState extends State<CompanyData> {
           SizedBox(height: 10,),
           Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "Commercial Registration No".tr(),)),
           SizedBox(height: 10,),
-         CustomDateTimeFormField (label: "Select date" ,onDateSelected: (p0) {
+         CustomDateTimeFormField (label: "Select date".tr() ,onDateSelected: (p0) {
            print(p0);
          },),
          SizedBox(height: 10,),
-         CustomDropdownButtonFormField(items:dropdownItems ,label: "Request type",onChanged: (p0) {
+         CustomDropdownButtonFormField(items:dropdownItems ,label: "Request type".tr(),onChanged: (p0) {
           print(p0);
          },),
          
          SizedBox(height: 10,),
-         CustomDropdownButtonFormField(items:dropdownItems ,label: "Activity",onChanged: (p0) {
+         CustomDropdownButtonFormField(items:dropdownItems ,label: "Activity".tr(),onChanged: (p0) {
           print(p0);
          },),
          SizedBox(height: 10,),
@@ -74,11 +74,11 @@ class _CompanyDataState extends State<CompanyData> {
          SizedBox(height: 10,),
          Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "Fax".tr() ,)),
          SizedBox(height: 10,),
-         Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.emailAddress , lable: "Email".tr() ,)),
+         Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.emailAddress , lable: "email".tr() ,)),
          SizedBox(height: 10,),
          Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.text , lable: "Location".tr() ,)),
          SizedBox(height: 10,),
-         CustomDropdownButtonFormField(items:dropdownItems ,label: "Customer activity",onChanged: (p0) {
+         CustomDropdownButtonFormField(items:dropdownItems ,label: "Customer activity".tr(),onChanged: (p0) {
           print(p0);
          },),
         ],

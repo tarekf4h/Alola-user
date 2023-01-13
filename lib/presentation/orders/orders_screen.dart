@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../shared/components.dart';
 import '../../utilities/app_ui.dart';
+import '../../utilities/app_util.dart';
+import 'current_order_screen.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({Key? key}) : super(key: key);
@@ -16,7 +19,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   Widget build(BuildContext context) {
         return Scaffold(
-        appBar: customAppBar(title: "Orders" , elevation: 0.5 , centerTitle: true),
+        appBar: customAppBar(title: "Orders".tr() , elevation: 0.5 , centerTitle: true),
         body: Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
       child:  ListView.separated(
                     separatorBuilder: (context, index) {
@@ -29,16 +32,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     itemCount: 20,
                     itemBuilder: (context, count) {
                       final item = count;
-                      return  Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      return InkWell(child:  Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                         child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(12) , border:Border.all(color: AppUI.shimmerColor) ),
                           child: Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
                           child: Row(
                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Image.asset("${AppUI.imgPath}Shape.png",width: 80,height: 80,),
+                              Image.asset("${AppUI.imgPath}Shape.png",width: 56,height: 56,),
                               SizedBox(width: 10,),
                               Expanded(child: 
                               
@@ -75,6 +78,10 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
                           ]),),
                         ),
+                      ),
+                      onTap: () {
+                        AppUtil.mainNavigator(context, CurrentOrderScreen());
+                      },
                       );
 
                     }) ,

@@ -32,12 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize:MainAxisSize.min,
           children: [
-          CustomText(text: "Your delivery site" ,fontSize: 12, color: AppUI.shimmerColor,),
+          CustomText(text: "Your delivery site".tr() ,fontSize: 12, color: AppUI.shimmerColor,),
           SizedBox(height: 5,),
           Row( mainAxisAlignment: MainAxisAlignment.center,
             children: [
-             CustomText(text: "Your delivery site" ,fontSize: 14, color: AppUI.blackColor,),
-             SizedBox(width: 10,),
+             CustomText(text: "Your delivery site".tr() ,fontSize: 14, color: AppUI.blackColor,),
+             SizedBox(width: 7,),
              Image.asset('${AppUI.imgPath}arrowDown.png', width: 12,height: 12,)
 
           ],)
@@ -72,41 +72,56 @@ class _HomeScreenState extends State<HomeScreen> {
         )]
         ),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
           child: ListView(
             children: [
               SizedBox(height: 20,),
-              CustomText(text: "Welcome back".tr() ,fontSize: 12, color: AppUI.shimmerColor,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16) ,
+                child: CustomText(text: "Welcome back".tr() ,fontSize: 12, color: AppUI.shimmerColor,),
+              ),
               SizedBox(height: 5,),
-              CustomText(text: "Name" ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: CustomText(text: "Name".tr() ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
+              ),
               SizedBox(height: 20,),
               SizedBox(
              width: AppUtil.responsiveWidth(context) - 40, 
-             child: CustomInput(suffixIcon:InkWell(onTap: () {
+             child: Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 16),
+               child: CustomInput(suffixIcon:InkWell(onTap: () {
             
-              },child:  Image.asset("${AppUI.imgPath}scannerIcon.png",height: 17,width: 25),),prefixIcon:Icon(Icons.search) ,controller: TextEditingController(), textInputType: TextInputType.name , hint: "search".tr() , radius: 20,),
+                },child:  Image.asset("${AppUI.imgPath}scannerIcon.png",height: 17,width: 25),),prefixIcon:Icon(Icons.search) ,controller: TextEditingController(), textInputType: TextInputType.name , hint: "search".tr() , radius: 20,),
+             ),
             ),
             SizedBox(height: 20,),
-             SizedBox(
+             Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 16),
+               child: SizedBox(
             height: 190.0,
             width: double.infinity,
             child: LightCarousel(
-              images: [
-                Image.asset("${AppUI.imgPath}Group 53766.png",width: double.infinity,height: 190,fit: BoxFit.fill,),
-                Image.asset("${AppUI.imgPath}Group 53766.png",width: double.infinity,height: 190,fit: BoxFit.fill),
-                Image.asset("${AppUI.imgPath}Group 53766.png",width: double.infinity,height: 190,fit: BoxFit.fill),
-              ],
-              dotSize: 5.0,
-              dotSpacing: 15.0,
-              dotColor: AppUI.whiteColor,
-              dotIncreasedColor: AppUI.mainColor,
-              indicatorBgPadding: 15.0,
-              dotBgColor: Colors.purple.withOpacity(0.0),
-              borderRadius: true,
+                images: [
+                  Image.asset("${AppUI.imgPath}Group 53766.png",width: double.infinity,height: 190,fit: BoxFit.fill,),
+                  Image.asset("${AppUI.imgPath}Group 53766.png",width: double.infinity,height: 190,fit: BoxFit.fill),
+                  Image.asset("${AppUI.imgPath}Group 53766.png",width: double.infinity,height: 190,fit: BoxFit.fill),
+                ],
+                dotSize: 5.0,
+                dotSpacing: 15.0,
+                dotColor: AppUI.whiteColor,
+                dotIncreasedColor: AppUI.mainColor,
+                indicatorBgPadding: 15.0,
+                dotBgColor: Colors.purple.withOpacity(0.0),
+                borderRadius: true,
             )
         ),
+             ),
         SizedBox(height: 20,),
-        CustomText(text: "Best selling category" ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: CustomText(text: "Best selling category".tr() ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
+        ),
         SizedBox(height: 20,),
          GridView.builder(
                 shrinkWrap: true ,
@@ -136,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(12.0),
                               child: Image.asset("${AppUI.imgPath}Coffe.png",height: 50,width: 50),
                             ),
                             ],
@@ -157,16 +172,19 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             ),
             SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomText(text: "Best offers" ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
-                InkWell(onTap: () {
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(text: "Best offers".tr() ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
+                  InkWell(onTap: () {
 
-               },
-               child: CustomText(text: "more".tr() , fontSize: 14,color: AppUI.mainColor,fontWeight: FontWeight.w700,) ,
-               ),
-            ],),
+                 },
+                 child: CustomText(text: "more".tr() , fontSize: 14,color: AppUI.mainColor,fontWeight: FontWeight.w700,) ,
+                 ),
+              ],),
+            ),
             SizedBox(height: 10,),
             Container(
               height: 230,
@@ -188,7 +206,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   AppUtil.mainNavigator(context, ProductDetailsScreen());
                 },
                 child:Container(
-                        margin:EdgeInsets.all(2),
+                        margin:EdgeInsets.all(8),
+                        padding: EdgeInsets.symmetric(horizontal: 12),
                         width: 100,
                         // height: 180,
                         decoration: BoxDecoration(
@@ -203,6 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Stack(children: [
                          Padding(
                            padding: const EdgeInsets.all(8.0),
+                           
                            child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -219,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 CustomText(text: "Text",color: AppUI.greyColor, textDecoration: TextDecoration.lineThrough)
                               ],),
                             SizedBox(height: 5,),
-                            CustomButton(text: "Add" ,fontSize: 12,)
+                            CustomButton(text: "Add".tr(),fontSize: 12,)
 
                              
 
@@ -232,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               SizedBox(width: 5,),
                               Image.asset("${AppUI.imgPath}Mask Group 461.png",height: 10,width: 10),
                               SizedBox(width: 5,),
-                              CustomText(text: "Save 20%", fontSize: 10,color: AppUI.errorColor,),
+                              CustomText(text: "Save 20%".tr(), fontSize: 10,color: AppUI.errorColor,),
                               SizedBox(width: 5,)
                              ],),
                              decoration: BoxDecoration(
@@ -246,16 +266,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(height: 20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomText(text: "Most popular products" ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
-                InkWell(onTap: () {
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(text: "Most popular products".tr() ,fontSize: 16,fontWeight: FontWeight.w700, color: AppUI.blackColor,),
+                  InkWell(onTap: () {
 
-               },
-               child: CustomText(text: "more".tr() , fontSize: 14,color: AppUI.mainColor,fontWeight: FontWeight.w700,) ,
-               ),
-            ],),
+                 },
+                 child: CustomText(text: "more".tr() , fontSize: 14,color: AppUI.mainColor,fontWeight: FontWeight.w700,) ,
+                 ),
+              ],),
+            ),
             SizedBox(height: 10,),
             Container(
               height: 230,
@@ -273,7 +296,8 @@ class _HomeScreenState extends State<HomeScreen> {
            ),
           itemBuilder: (BuildContext context, int index) { 
               return  Container(
-                        margin:EdgeInsets.all(2),
+                        margin:EdgeInsets.all(8),
+                        padding: EdgeInsets.symmetric(horizontal: 12),
                         width: 100,
                         // height: 180,
                         decoration: BoxDecoration(
@@ -304,7 +328,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 CustomText(text: "Text",color: AppUI.greyColor, textDecoration: TextDecoration.lineThrough)
                               ],),
                             SizedBox(height: 5,),
-                            CustomButton(text: "Add" ,fontSize: 12,)
+                            CustomButton(text: "Add".tr() ,fontSize: 12,)
 
                              
 

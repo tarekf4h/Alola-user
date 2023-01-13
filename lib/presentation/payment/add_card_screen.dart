@@ -20,7 +20,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: "Payment" , elevation: 0.5 , centerTitle: true),
+      appBar: customAppBar(title: "Payment".tr() , elevation: 0.5 , centerTitle: true),
       body: Padding(padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
       child: ListView(
         children: [
@@ -42,7 +42,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
            Container(child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.name , lable: "Card number".tr() ,)),
           SizedBox(height: 10,),
           Row(children: [
-          Expanded(child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.number , lable: "Expiry date".tr() ,),),
+          Expanded(child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.number , lable: "Expiry".tr() ,),),
           SizedBox(width: 10,),
           Expanded(child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.number , lable: "CVV".tr() ,),),
           ],),
@@ -57,7 +57,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
               
             });
           })),
-          CustomText(text: "The card will be saved for future use" , fontSize: 12, color: AppUI.blackColor)
+          CustomText(text: "The card will be saved for future use".tr() , fontSize: 12, color: AppUI.blackColor)
           ],),
           SizedBox(height: 10,),
           Row(
@@ -66,13 +66,10 @@ class _AddCardScreenState extends State<AddCardScreen> {
             SvgPicture.asset("${AppUI.iconPath}verifiedUser.svg",),
             SizedBox(width: 10,),
             Expanded(child: 
-            CustomText(text: "We may send a confirmation message to your registered mobile number and your card will be credited once authenticated. Or your card will be verified by putting a small amount on hold, and that amount will be released automatically. All your card details are kept safe and secure." , fontSize: 12, color: AppUI.blackColor))
+            CustomText(text: "We may send a confirmation message to your registered mobile number and your card will be credited once authenticated. Or your card will be verified by putting a small amount on hold, and that amount will be released automatically. All your card details are kept safe and secure.".tr() , fontSize: 12, color: AppUI.blackColor))
           ],),
           SizedBox(height: 30,),
-          CustomButton(text: "Add" , radius: 15,)
-
-
-
+          CustomButton(text: "Add".tr(), radius: 15,)
       ],),),
 
 

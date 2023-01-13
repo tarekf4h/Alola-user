@@ -1,4 +1,5 @@
 import 'package:adelco_user/shared/components.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -20,7 +21,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: "Cart" , centerTitle: true),
+      appBar: customAppBar(title: "Cart".tr() , centerTitle: true),
       body: Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
       child:  ListView.separated(
                     separatorBuilder: (context, index) {
@@ -50,7 +51,7 @@ class _CartScreenState extends State<CartScreen> {
                     .showSnackBar(SnackBar(content: Text('$item dismissed')));
               },
               // Show a red background as the item is swiped away.
-              background: Container(color: Colors.red ,child: Row(children: [SizedBox(width: 5,),SvgPicture.asset("${AppUI.iconPath}trash.svg" , color: AppUI.whiteColor,),SizedBox(width: 10,) ,CustomText(text: "Delete",color: AppUI.whiteColor,),SizedBox(width: 10,)],),),
+              background: Container(color: Colors.red ,child: Row(children: [SizedBox(width: 5,),SvgPicture.asset("${AppUI.iconPath}trash.svg" , color: AppUI.whiteColor,),SizedBox(width: 10,) ,CustomText(text: "Delete".tr(),color: AppUI.whiteColor,),SizedBox(width: 10,)],),),
               child: Padding(
                         padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                         child: Container(
@@ -106,7 +107,7 @@ class _CartScreenState extends State<CartScreen> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12) , border:Border.all(color: AppUI.shimmerColor ,width: 0.5) ),
-        height: open ? 220:130,
+        height: open ? 230:140,
         width: AppUtil.responsiveWidth(context),
         child: Padding(padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
         child: Column(
@@ -131,7 +132,7 @@ class _CartScreenState extends State<CartScreen> {
              Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(text: "Delivery" , color: AppUI.blackColor,),
+                CustomText(text: "Delivery".tr() , color: AppUI.blackColor,),
                 CustomText(text: "text" , color: AppUI.blackColor),
               ],
             ),
@@ -139,7 +140,7 @@ class _CartScreenState extends State<CartScreen> {
              Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(text: "Tax" , color: AppUI.blackColor,),
+                CustomText(text: "Tax".tr() , color: AppUI.blackColor,),
                 CustomText(text: "text" , color: AppUI.blackColor),
               ],
             ),
@@ -149,12 +150,12 @@ class _CartScreenState extends State<CartScreen> {
            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomText(text: "Total" , color: AppUI.blackColor,fontSize: 16,fontWeight: FontWeight.w600,),
+                CustomText(text: "Total".tr() , color: AppUI.blackColor,fontSize: 16,fontWeight: FontWeight.w600,),
                 CustomText(text: "text" , color: AppUI.blackColor,fontSize: 16,fontWeight: FontWeight.w600,),
               ],
             ),
             SizedBox(height: 10,),
-            CustomButton(text: "Order execution" , radius: 15,onPressed: () {
+            CustomButton(text: "Order execution".tr() , radius: 36, height: 17,onPressed: () {
               AppUtil.mainNavigator(context, OrderConfirmationScreen());
             },)
         ],),

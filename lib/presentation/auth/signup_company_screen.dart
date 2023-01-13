@@ -88,7 +88,7 @@ class _SignupCompanyScreenState extends State<SignupCompanyScreen> with TickerPr
                             children: [
 
                            
-                          CustomButton(width: 140,text: tabController.index==3 ? "create" : "next".tr()  , radius: 20 ,onPressed: () {
+                          CustomButton(width: 140,text: tabController.index==3 ? "create".tr() : "next".tr()  , radius: 20 ,onPressed: () {
                             setState(() {
                             if (tabController.index < 3){
                             tabController.index += 1; 

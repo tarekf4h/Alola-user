@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:adelco_user/shared/components.dart';
 import 'package:adelco_user/utilities/app_util.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -62,7 +63,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             SizedBox(height: 5,),
 
                                 SizedBox(height: 10,),
-                                Row(children: [SvgPicture.asset("${AppUI.iconPath}publicFill.svg" , height: 15,width: 15,) , SizedBox(width: 10,) , CustomText(text: "Country of Origin :" , color: AppUI.blackColor,)],),
+                                Row(children: [SvgPicture.asset("${AppUI.iconPath}publicFill.svg" , height: 15,width: 15,) , SizedBox(width: 10,) , CustomText(text: "Country of Origin :".tr() , color: AppUI.blackColor,)],),
                                 SizedBox(height: 5,),
                                 Expanded(
                                   flex: 0,
@@ -73,7 +74,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 )),
                                 SizedBox(height: 10,),
                                 SizedBox(height: 10,),
-                                Row(children: [SvgPicture.asset("${AppUI.iconPath}verified.svg" , height: 15,width: 15,) , SizedBox(width: 10,) , CustomText(text: "Product Expiry :" , color: AppUI.blackColor,)],),
+                                Row(children: [SvgPicture.asset("${AppUI.iconPath}verified.svg" , height: 15,width: 15,) , SizedBox(width: 10,) , CustomText(text: "Product Expiry :".tr() , color: AppUI.blackColor,)],),
                                 SizedBox(height: 5,),
                                 Expanded(
                                   flex: 0,
@@ -84,7 +85,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 )),
                                 SizedBox(height: 10,),
                                 SizedBox(height: 10,),
-                                Row(children: [SvgPicture.asset("${AppUI.iconPath}info.svg" , height: 15,width: 15,) , SizedBox(width: 10,) , CustomText(text: "Product information :" , color: AppUI.blackColor,)],),
+                                Row(children: [SvgPicture.asset("${AppUI.iconPath}info.svg" , height: 15,width: 15,) , SizedBox(width: 10,) , CustomText(text: "Product information :".tr() , color: AppUI.blackColor,)],),
                                 SizedBox(height: 5,),
                                 Expanded(
                                   flex: 0,
@@ -119,7 +120,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                           ),
                                         )),
                                          SizedBox(width: 20,),
-                                         CustomButton(text: "Add" ,fontSize: 12,width: AppUtil.responsiveWidth(context) * 0.3,),
+                                         CustomButton(text: "Add".tr() ,fontSize: 12,width: AppUtil.responsiveWidth(context) * 0.3,),
                                       ],
 
                                      )

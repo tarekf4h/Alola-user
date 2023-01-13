@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../utilities/app_ui.dart';
@@ -71,6 +72,9 @@ class GradientCircularProgressPainter extends CustomPainter {
 AppBar customAppBar ({required title,Widget? leading,List<Widget>? actions,double elevation = 0,Widget? bottomChild,Color? backgroundColor,bottomChildHeight,leadingWidth,centerTitle}){
   return AppBar(
     backgroundColor: backgroundColor??AppUI.whiteColor,
+    iconTheme: IconThemeData(
+    color: AppUI.mainColor, //change your color here
+  ),
     elevation: double.parse(elevation.toString()),
     title: title is Widget? title : CustomText(text: title, fontSize: 18.0,color: AppUI.blackColor,fontWeight: FontWeight.w100,),
     centerTitle: centerTitle??false,
@@ -321,6 +325,62 @@ class SelectLocationContainer extends StatelessWidget {
          ],),);
   }
 }
+class AarrowContainer extends StatelessWidget {
+    final String? title ;
+  final String? img ;
+  final bool? border;
+  final Color? arrowColor;
+  final double? padding;
+  const AarrowContainer({Key? key , required this.img , required this.title , this.border , this.arrowColor , this.padding}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+       return Container(
+          decoration: BoxDecoration(
+          color: AppUI.whiteColor,
+          border: Border.all(color: border!=null ? AppUI.shimmerColor : Colors.transparent),
+          borderRadius: BorderRadius.circular(8),),
+          padding: EdgeInsets.all(padding ?? 8 ),
+          child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+           SvgPicture.asset("${AppUI.iconPath}$img.svg" ,height: 13,width: 13,),
+           SizedBox(width: 10,),
+          Expanded(child: 
+          CustomText(text: title?.tr() , color: AppUI.blackColor, fontSize: 14,),),
+          SizedBox(width: 10,),
+          Image.asset('${AppUI.imgPath}${AppUtil.Lang == "ar" ? "Aarrow.png":"AarrowE.png"}',width: 16,height: 16,color: arrowColor != null ? arrowColor:AppUI.greyColor,),
+         ],),);
+  }
+}
+// class AarrowContainer extends StatefulWidget {
+//   final String? title ;
+//   final String? img ;
+//   const AarrowContainer({Key? key , required this.img , required this.title}) : super(key: key);
+
+//   @override
+//   State<AarrowContainer> createState() => _AarrowContainerState();
+// }
+
+// class _AarrowContainerState extends State<AarrowContainer> {
+//   @override
+//   Widget build(BuildContext context) {
+//    return Container(
+//           decoration: BoxDecoration(
+//           color: AppUI.whiteColor,
+//           border: Border.all(color: AppUI.shimmerColor),
+//           borderRadius: BorderRadius.circular(8),),
+//           padding: EdgeInsets.all(8),
+//           child: Row(
+//           mainAxisSize: MainAxisSize.min,
+//           children: [
+//           Expanded(child: 
+//           CustomText(text: title?.tr() , color: AppUI.blackColor, fontSize: 12,),),
+//           SizedBox(width: 10,),
+//           Image.asset('${AppUI.imgPath}AarrowE.png',width: 16,height: 16,),
+//          ],),);
+//   }
+// }
 class  CustomAarrowContainer extends StatelessWidget {
   final String? title ;
   const CustomAarrowContainer({Key? key , required this.title}) : super(key: key);
@@ -338,8 +398,8 @@ class  CustomAarrowContainer extends StatelessWidget {
           children: [
           Expanded(child: 
           CustomText(text: title?.tr() , color: AppUI.blackColor, fontSize: 12,),),
-          SizedBox(width: 10,),
-          Image.asset('${AppUI.imgPath}AarrowE.png',width: 16,height: 16,),
+          // SizedBox(width: 10,), 
+          Image.asset('${AppUI.imgPath}${AppUtil.Lang == "ar" ? "Aarrow.png":"AarrowE.png"}',width: 16,height: 16,),
          ],),);
   }
 }
@@ -476,7 +536,7 @@ class CustomInput extends StatelessWidget {
           child: suffixIcon,
         ),
         labelText: lable,
-        labelStyle: TextStyle(color: AppUI.mainColor , fontSize: fontSize),
+        labelStyle: TextStyle(color: AppUI.blackColor , fontSize: fontSize),
         filled: true,
         fillColor: fillColor??AppUI.whiteColor,
         suffixIconConstraints: const BoxConstraints(

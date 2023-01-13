@@ -71,10 +71,128 @@ class _RatingottomSheetState extends State<RatingottomSheet> {
                 full: const Icon(Icons.star,size: 25,color: Colors.amber,)
             ),
             ),
-              // )
           ],
+
           ),
-        )
+        ),
+        SizedBox(height: 8,),
+         Container(
+          decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: AppUI.shimmerColor)),
+          padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+            Expanded(child:   CustomText(text: "Rate your delivery time" , fontSize: 12,color: AppUI.blackColor,)),
+              // Expanded(child: 
+               RatingBar(
+              initialRating: 0,
+              minRating: 1,
+              // ignoreGestures: true,
+              direction: Axis.horizontal,
+              // allowHalfRating: f,
+              itemCount: 5,
+              itemSize: 35,
+              unratedColor: AppUI.iconColor,
+              onRatingUpdate: (rating) {
+                // cubit.rateAdded = rating;
+                setState(() {});
+              }, ratingWidget: RatingWidget(
+                empty:  Icon(Icons.star_border,size: 25,color: AppUI.iconColor,),
+                half:  const Directionality(textDirection: ui.TextDirection.ltr,
+                    child: Icon(Icons.star_half,size: 25,color: Colors.amber,)),
+                full: const Icon(Icons.star,size: 25,color: Colors.amber,)
+            ),
+            ),
+          ],
+
+          ),
+        ),
+        SizedBox(height: 8,),
+         Container(
+          decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: AppUI.shimmerColor)),
+          padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+            Expanded(child:   CustomText(text: "Rate your delivery speed" , fontSize: 12,color: AppUI.blackColor,)),
+              // Expanded(child: 
+               RatingBar(
+              initialRating: 0,
+              minRating: 1,
+              // ignoreGestures: true,
+              direction: Axis.horizontal,
+              // allowHalfRating: f,
+              itemCount: 5,
+              itemSize: 35,
+              unratedColor: AppUI.iconColor,
+              onRatingUpdate: (rating) {
+                // cubit.rateAdded = rating;
+                setState(() {});
+              }, ratingWidget: RatingWidget(
+                empty:  Icon(Icons.star_border,size: 25,color: AppUI.iconColor,),
+                half:  const Directionality(textDirection: ui.TextDirection.ltr,
+                    child: Icon(Icons.star_half,size: 25,color: Colors.amber,)),
+                full: const Icon(Icons.star,size: 25,color: Colors.amber,)
+            ),
+            ),
+          ],
+
+          ),
+        ),
+        
+         SizedBox(height: 8,),
+         Container(
+          decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: AppUI.shimmerColor)),
+          padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+            Expanded(child: CustomText(text: "Your rating for the products" , fontSize: 12,color: AppUI.blackColor,)),
+              // Expanded(child: 
+               RatingBar(
+              initialRating: 0,
+              minRating: 1,
+              // ignoreGestures: true,
+              direction: Axis.horizontal,
+              // allowHalfRating: f,
+              itemCount: 5,
+              itemSize: 35,
+              unratedColor: AppUI.iconColor,
+              onRatingUpdate: (rating) {
+                // cubit.rateAdded = rating;
+                setState(() {});
+              }, ratingWidget: RatingWidget(
+                empty:  Icon(Icons.star_border,size: 25,color: AppUI.iconColor,),
+                half:  const Directionality(textDirection: ui.TextDirection.ltr,
+                    child: Icon(Icons.star_half,size: 25,color: Colors.amber,)),
+                full: const Icon(Icons.star,size: 25,color: Colors.amber,)
+            ),
+            ),
+          ],
+
+          ),
+        ),
+            SizedBox(height: 8,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.name , maxLines: 4, lable: "Note",),
+            ),
+            SizedBox(height: 12,),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: CustomButton(text: "Send"),
+            ),
+             SizedBox(height: 12,),
 
       ],)
       ),

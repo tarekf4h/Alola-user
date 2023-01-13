@@ -37,7 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title: "Name", elevation: 0.5, centerTitle: true),
+      appBar: customAppBar(title: "Name".tr(), elevation: 0.5, centerTitle: true),
       body: Container(
           child: 
           Column(
