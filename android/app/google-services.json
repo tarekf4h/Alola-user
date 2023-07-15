@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "951821401112",
+    "project_id": "client-app-9bffb",
+    "storage_bucket": "client-app-9bffb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951821401112:android:eb28f98fc6927ea094976d",
+        "android_client_info": {
+          "package_name": "com.example.adelco_user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951821401112-vl342ihjc1fflmfn5i19jmj1h1j8d2lc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0OefM1sxeiZfydq74b6fQswgnQ-0uaaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951821401112-vl342ihjc1fflmfn5i19jmj1h1j8d2lc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

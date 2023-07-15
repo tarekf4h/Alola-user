@@ -2,6 +2,7 @@
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../bloc/bottom_nav/bottom_nav_cubit.dart';
 import '../main.dart';
 import '../utilities/app_util.dart';
 
@@ -20,11 +21,11 @@ class CashHelper{
     return savedValue;
   }
 
-  // static logOut(context) async {
-  //   SharedPreferences _prefs = await SharedPreferences.getInstance();
-  //   await _prefs.clear();
-  //   BottomNavCubit.get(context).currentIndex=0;
-  //   AppUtil.replacementNavigator(context, const MyApp());
-  // }
+  static logOut(context) async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    await _prefs.clear();
+    BottomNavCubit.get(context).currentIndex=0;
+    AppUtil.replacementNavigator(context, const MyApp());
+  }
 
 }

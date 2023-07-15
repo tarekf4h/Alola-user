@@ -1,40 +1,41 @@
-import 'package:adelco_user/presentation/auth/signup_company_screen.dart';
-import 'package:adelco_user/presentation/bottom_nav/bottom_nav_tabs_screen.dart';
-import 'package:adelco_user/presentation/home/product_details_screen.dart';
-import 'package:adelco_user/presentation/onboarding/onboarding_screen.dart';
-import 'package:adelco_user/presentation/orders/cancel_order_screen.dart';
-import 'package:adelco_user/presentation/orders/chat_screen.dart';
-import 'package:adelco_user/presentation/orders/current_order_screen.dart';
-import 'package:adelco_user/presentation/orders/previous_order_screen.dart';
-import 'package:adelco_user/presentation/orders/rating_bottom_sheet.dart';
-import 'package:adelco_user/presentation/orders/statuses_screen.dart';
-import 'package:adelco_user/presentation/payment/add_card_screen.dart';
-import 'package:adelco_user/presentation/payment/all_card_screen.dart';
+import 'dart:io';
+
+import 'package:adelco_user/bloc/Cart/cart_cubit.dart';
+import 'package:adelco_user/bloc/Checkout/checkout_cubit.dart';
+import 'package:adelco_user/bloc/Orders/orders_cubit.dart';
+import 'package:adelco_user/bloc/addresses/addresses_cubit.dart';
+import 'package:adelco_user/bloc/product/product_cubit.dart';
 import 'package:adelco_user/presentation/splash/splash_screen.dart';
-import 'package:adelco_user/shared/components.dart';
 import 'package:adelco_user/utilities/app_ui.dart';
+import 'package:adelco_user/utilities/app_util.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:status_stepper/status_stepper.dart';
-
 import 'bloc/auth/auth_cubit.dart';
+import 'bloc/bottom_nav/bottom_nav_cubit.dart';
 import 'bloc/onboarding/onboarding_cubit.dart';
-
-
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = CustomHttpOverrides();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await AppUtil.initNotification();
+  await AppUtil.getToken();
   await EasyLocalization.ensureInitialized();
-     runApp(
+
+  runApp(
     EasyLocalization(
         supportedLocales: const [Locale('ar'), Locale('en')],
         path: 'lang',
         fallbackLocale: const Locale('ar'),
         child: const MyApp()),
   );
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -43,13 +44,39 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-      return MultiBlocProvider(
+    return MultiBlocProvider(
       providers: [
-      BlocProvider(create: (context) => AuthCubit(),),
-      // BlocProvider(create: (context) => BottomNavCubit(),),
-      // BlocProvider(create: (context) => PreparationCubit(),),
-       BlocProvider(create: (context) => OnboardingCubit(),),
-      
+        BlocProvider(
+          create: (context) => AuthCubit()
+            ..getClientCategoriesLis()
+            ..getCommercialActivitiesList()
+            ..getCompaniesOrderTypesList()
+            ..privacyPolicy()
+            ..socialMedia(),
+        ),
+        BlocProvider(
+          create: (context) => BottomNavCubit(),
+        ),
+        BlocProvider(
+          create: (context) => OnboardingCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ProductCubit()
+            ..home()
+            ..getCategory(),
+        ),
+        BlocProvider(
+          create: (context) => CartCubit(),
+        ),
+        BlocProvider(
+          create: (context) => OrdersCubit(),
+        ),
+        BlocProvider(
+          create: (context) => AddressesCubit()..getAddress(),
+        ),
+        BlocProvider(
+          create: (context) => CheckoutCubit(),
+        ),
       ],
       child: MaterialApp(
         title: 'adelco',
@@ -59,18 +86,127 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         theme: ThemeData(
           scaffoldBackgroundColor: AppUI.whiteColor,
-          appBarTheme:  AppBarTheme(color: Colors.white,iconTheme: IconThemeData(color: AppUI.blackColor)),
+          appBarTheme: AppBarTheme(
+              color: Colors.white,
+              iconTheme: IconThemeData(color: AppUI.blackColor)),
           primarySwatch: AppUI.mainColor,
-          textTheme: GoogleFonts.tajawalTextTheme(Theme.of(context).textTheme).copyWith(
-            bodyText1: GoogleFonts.tajawal(textStyle: Theme.of(context).textTheme.bodyText1)
-            // (textStyle: Theme.of(context).textTheme.bodyText1),
-          ),
+          textTheme: GoogleFonts.tajawalTextTheme(Theme.of(context).textTheme)
+              .copyWith(
+                  bodyText1: GoogleFonts.tajawal(
+                      textStyle: Theme.of(context).textTheme.bodyText1)
+                  // (textStyle: Theme.of(context).textTheme.bodyText1),
+                  ),
         ),
-        home:  SplashScreen(),
+        home: SplashScreen(),
       ),
     );
   }
 }
+
+class CustomHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+//   void main() {
+//   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       title: 'Flutter Demo',
+//       home: MyHomePage(title: 'Flutter Demo Home Page'),
+//     );
+//   }
+// }
+
+// class MyHomePage extends StatefulWidget {
+//   const MyHomePage({Key? key, required this.title}) : super(key: key);
+
+//   final String title;
+
+//   @override
+//   State<MyHomePage> createState() => _MyHomePageState();
+// }
+
+// class _MyHomePageState extends State<MyHomePage> {
+//   List<Uint8List>? photos;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(widget.title),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             TextButton(
+//                 onPressed: () async {
+//                   photos = await MultiCropPicker.selectMedia(context,
+//                       maxLength: 2,
+//                       aspectRatio: 1.0,
+//                       previewHeight: MediaQuery.of(context).size.height * 1 / 2,
+//                       previewShowingRatio: 1 / 3,
+//                       textColor: Colors.white,
+//                       backgroundColor: Colors.brown,
+//                       tagColor: Colors.yellow,
+//                       loadingWidget: const LoadingCircle(),
+//                       tagTextColor: Colors.black);
+//                   setState(() {});
+//                 },
+//                 child: const Text('get images')),
+//             if (photos != null)
+//               ListView.builder(
+//                   itemCount: photos!.length,
+//                   shrinkWrap: true,
+//                   itemBuilder: (context, index) {
+//                     return SizedBox(
+//                       height: MediaQuery.of(context).size.width,
+//                       width: MediaQuery.of(context).size.width,
+//                       child: Image.memory(photos![index]),
+//                     );
+//                   })
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class LoadingCircle extends StatelessWidget {
+//   const LoadingCircle(
+//       {Key? key,
+//       this.size = 22.0,
+//       this.backgroudColor = 0x000000,
+//       this.color = 0xFFFFFDE7})
+//       : super(key: key);
+//   final double size;
+//   final int backgroudColor;
+//   final int color;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       width: size,
+//       height: size,
+//       child: CircularProgressIndicator(
+//         strokeWidth: 3,
+//         backgroundColor: Color(backgroudColor),
+//         color: Color(color),
+//       ),
+//     );
+//   }
+// }
+    
+
 
 
 // import 'package:flutter/material.dart';

@@ -27,6 +27,7 @@ class _SignupScreenState extends State<SignupScreen> {
         builder: (context, state) {
           var cubit = AuthCubit.get(context);
           return Form(
+            key: cubit.registerFormKey,
             child:
             Padding(
               padding: const EdgeInsets.only(left: 50 , right: 50 ),
@@ -45,15 +46,15 @@ class _SignupScreenState extends State<SignupScreen> {
                      SizedBox(height: 10,),
                      CustomText(text: "createAccount".tr() ,fontSize: 22,color: AppUI.blackColor,),
                      SizedBox(height: 10,),
-                     Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.text , lable: "Name".tr(),)),
+                     Container(child: CustomInput(controller: cubit.registerName, textInputType: TextInputType.text , lable: "Name".tr(),)),
                      SizedBox(height: 10,),
-                     Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.text , lable: "Phone".tr(),)),
+                    CustomInput(controller: cubit.registerPhone, lable: "Phone".tr(), textInputType: TextInputType.phone,prefixIcon:  CustomText(text: "+966",fontSize: 16.0,color: AppUI.blackColor),),
                      SizedBox(height: 10,),
-                     Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.text , lable: "email".tr(),)),
+                     Container(child: CustomInput(controller: cubit.registerEmail, textInputType: TextInputType.text , lable: "email".tr(),)),
                      SizedBox(height: 10,),
-                     Container(width: 300,child: CustomInput(obscureText: true ,controller: TextEditingController(), textInputType: TextInputType.text , lable: "pass".tr(),)),
+                     Container(child: CustomInput(obscureText: true ,controller: cubit.registerPassword, textInputType: TextInputType.text , lable: "pass".tr(),)),
                      SizedBox(height: 10,),
-                     Container(width: 300,child: CustomInput(obscureText: true ,controller: TextEditingController(), textInputType: TextInputType.text , lable: "rePass".tr(),)),
+                     Container(child: CustomInput(obscureText: true ,controller: cubit.registerConfirmPassword, textInputType: TextInputType.text , lable: "rePass".tr(),)),
                      SizedBox(height: 10,),
                      Container(
                        child: Column(
@@ -69,11 +70,21 @@ class _SignupScreenState extends State<SignupScreen> {
                         ],),
                      ),
                      SizedBox(height: 20,),
-                     Container(width: 300,
-                     child: CustomButton(text:  "createAccount".tr() , radius: 20 ,
-                     onPressed: (() => {
-                      AppUtil.mainNavigator(context, const VerificationScreen())
-                     }),),),
+                    if(state is SendOtpLoadingState)
+                    const LoadingWidget()
+                    else
+                     CustomButton(text:  "createAccount".tr() , radius: 20 ,
+                     onPressed: () async {
+                              if(cubit.registerFormKey.currentState!.validate()) {
+                            await cubit.sendOtp(context, 'register', cubit.registerPhone.text , cubit.registerEmail.text);
+                            if(cubit.sendOtpModel!.status == true){
+                             AppUtil.successToast(context, "${cubit.sendOtpModel?.message ?? ""} \n ${cubit.sendOtpModel?.data ?? ""}");
+                            AppUtil.mainNavigator(context,  VerificationScreen(type: 'register', phone: cubit.registerPhone.text ,email: cubit.registerEmail.text,));
+                            }else{
+                             AppUtil.errorToast(context, cubit.sendOtpModel?.message ?? "");
+                            }
+                            }
+                     }),
                      SizedBox(height: 40,),
                      
                      ],

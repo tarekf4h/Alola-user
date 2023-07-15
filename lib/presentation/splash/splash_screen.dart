@@ -7,6 +7,8 @@ import '../../shared/cash_helper.dart';
 import '../../utilities/app_ui.dart';
 import '../../utilities/app_util.dart';
 import '../auth/login_screen.dart';
+import '../bottom_nav/bottom_nav_tabs_screen.dart';
+import '../onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,8 +22,17 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 6),() async {
-     AppUtil.replacementNavigator(context, const LoginScreen());
-          AppUtil.Lang = await CashHelper.getSavedString("lang", "") == "" ? "en":AppUtil.Lang ;
+    AppUtil.Lang = await CashHelper.getSavedString("lang", "") == "" ? "ar":AppUtil.Lang ;
+    AppUtil.address =  await CashHelper.getSavedString("address", "");
+    print("${AppUtil.Lang} splashhhhhhh" );
+    // AppUtil.replacementNavigator(context, const LoginScreen());
+        String id = await CashHelper.getSavedString("id", "");
+       if(id != ""){ 
+      AppUtil.isLogin = true;
+      AppUtil.replacementNavigator(context,  BottomNavTabsScreen());
+     }else{
+      AppUtil.replacementNavigator(context,  OnboardingScreen());
+     }
 
     });
   }

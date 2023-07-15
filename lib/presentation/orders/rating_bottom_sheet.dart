@@ -4,15 +4,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../../bloc/Orders/orders_cubit.dart';
 import '../../shared/components.dart';
 import '../../utilities/app_ui.dart';
 import '../../utilities/app_util.dart';
 import 'dart:ui' as ui;
 
 class RatingottomSheet extends StatefulWidget {
-  const RatingottomSheet({Key? key}) : super(key: key);
+  final int? id;
+  const RatingottomSheet({Key? key , required this.id}) : super(key: key);
 
   @override
   State<RatingottomSheet> createState() => _RatingottomSheetState();
@@ -20,8 +23,23 @@ class RatingottomSheet extends StatefulWidget {
 
 class _RatingottomSheetState extends State<RatingottomSheet> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final cubit = OrdersCubit.get(context);
+    cubit.deliverySpeedReview = null;
+    cubit.captainReview = null;
+    cubit.deliveryTimeReview = null;
+    cubit.productsReview = null;
+
+  }
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
+        final cubit = OrdersCubit.get(context);
+    return BlocBuilder< OrdersCubit, OrdersState>(
+          buildWhen : (_,state) => state is ReviewLoadingState || state is ReviewLoadedState || state is ReviewErrorState,
+          builder: (context, state) {
+           return SizedBox(
                 height: AppUtil.responsiveHeight(context)*0.9,
                 child: Scaffold(
                 backgroundColor: Colors.transparent,
@@ -50,7 +68,7 @@ class _RatingottomSheetState extends State<RatingottomSheet> {
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-            Expanded(child:   CustomText(text: "Your rating for the delegate" , fontSize: 12,color: AppUI.blackColor,)),
+            Expanded(child:   CustomText(text: "Your rating for the delegate".tr() , fontSize: 12,color: AppUI.blackColor,)),
               // Expanded(child: 
                RatingBar(
               initialRating: 0,
@@ -63,6 +81,7 @@ class _RatingottomSheetState extends State<RatingottomSheet> {
               unratedColor: AppUI.iconColor,
               onRatingUpdate: (rating) {
                 // cubit.rateAdded = rating;
+                cubit.captainReview =  "${rating}";
                 setState(() {});
               }, ratingWidget: RatingWidget(
                 empty:  Icon(Icons.star_border,size: 25,color: AppUI.iconColor,),
@@ -85,7 +104,7 @@ class _RatingottomSheetState extends State<RatingottomSheet> {
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-            Expanded(child:   CustomText(text: "Rate your delivery time" , fontSize: 12,color: AppUI.blackColor,)),
+            Expanded(child:   CustomText(text: "Rate your delivery time".tr() , fontSize: 12,color: AppUI.blackColor,)),
               // Expanded(child: 
                RatingBar(
               initialRating: 0,
@@ -98,6 +117,7 @@ class _RatingottomSheetState extends State<RatingottomSheet> {
               unratedColor: AppUI.iconColor,
               onRatingUpdate: (rating) {
                 // cubit.rateAdded = rating;
+                cubit.deliveryTimeReview =  "${rating}";
                 setState(() {});
               }, ratingWidget: RatingWidget(
                 empty:  Icon(Icons.star_border,size: 25,color: AppUI.iconColor,),
@@ -120,7 +140,7 @@ class _RatingottomSheetState extends State<RatingottomSheet> {
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-            Expanded(child:   CustomText(text: "Rate your delivery speed" , fontSize: 12,color: AppUI.blackColor,)),
+            Expanded(child:   CustomText(text: "Rate your delivery speed".tr() , fontSize: 12,color: AppUI.blackColor,)),
               // Expanded(child: 
                RatingBar(
               initialRating: 0,
@@ -133,6 +153,7 @@ class _RatingottomSheetState extends State<RatingottomSheet> {
               unratedColor: AppUI.iconColor,
               onRatingUpdate: (rating) {
                 // cubit.rateAdded = rating;
+                cubit.deliverySpeedReview =  "${rating}";
                 setState(() {});
               }, ratingWidget: RatingWidget(
                 empty:  Icon(Icons.star_border,size: 25,color: AppUI.iconColor,),
@@ -156,7 +177,7 @@ class _RatingottomSheetState extends State<RatingottomSheet> {
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-            Expanded(child: CustomText(text: "Your rating for the products" , fontSize: 12,color: AppUI.blackColor,)),
+            Expanded(child: CustomText(text: "Your rating for the products".tr() , fontSize: 12,color: AppUI.blackColor,)),
               // Expanded(child: 
                RatingBar(
               initialRating: 0,
@@ -169,6 +190,7 @@ class _RatingottomSheetState extends State<RatingottomSheet> {
               unratedColor: AppUI.iconColor,
               onRatingUpdate: (rating) {
                 // cubit.rateAdded = rating;
+                cubit.productsReview =  "${rating}";
                 setState(() {});
               }, ratingWidget: RatingWidget(
                 empty:  Icon(Icons.star_border,size: 25,color: AppUI.iconColor,),
@@ -184,19 +206,29 @@ class _RatingottomSheetState extends State<RatingottomSheet> {
             SizedBox(height: 8,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.name , maxLines: 4, lable: "Note",),
+              child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.name , maxLines: 4, lable: "Note".tr(),),
             ),
             SizedBox(height: 12,),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: CustomButton(text: "Send"),
+              child: state is ReviewLoadingState ? LoadingWidget() : CustomButton(text: "send".tr() ,onPressed: () async {
+                await cubit.review("${widget.id}");
+                if(cubit.reviewModel?.status == true){
+                  AppUtil.successToast(context, cubit.reviewModel?.message);
+                  Navigator.pop(context, true); 
+                }else{
+                 AppUtil.errorToast(context, cubit.reviewModel?.message);
+                }
+              },),
             ),
              SizedBox(height: 12,),
 
       ],)
       ),
     ));
+  }
+    );
   }
 }
 

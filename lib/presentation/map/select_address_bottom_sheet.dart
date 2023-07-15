@@ -3,28 +3,46 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../bloc/Checkout/checkout_cubit.dart';
+import '../../bloc/addresses/addresses_cubit.dart';
+import '../../bloc/product/product_cubit.dart';
+import '../../shared/cash_helper.dart';
 import '../../shared/components.dart';
 import '../../utilities/app_ui.dart';
 import '../../utilities/app_util.dart';
 import 'add_address_screen.dart';
 
 class SelectAddressBottomSheet extends StatefulWidget {
-  const SelectAddressBottomSheet({Key? key}) : super(key: key);
+  final Function()? update;
+  const SelectAddressBottomSheet({Key? key, this.update}) ;
 
   @override
   State<SelectAddressBottomSheet> createState() => _SelectAddressBottomSheetState();
 }
 
 class _SelectAddressBottomSheetState extends State<SelectAddressBottomSheet> {
+   Function()? updateNew;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final cubit = AddressesCubit.get(context);
+    cubit.getAddress();
+    
+  }
   var select = -1 ;
   @override
   Widget build(BuildContext context) {
+        final cubit = AddressesCubit.get(context);
+    final cubitCheckout = CheckoutCubit.get(context);
+
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: SizedBox(
-                  height: AppUtil.responsiveHeight(context)*0.4,
+                  height: AppUtil.responsiveHeight(context)*0.8,
                   child:
                    Scaffold(
                     backgroundColor: Colors.transparent,
@@ -42,7 +60,17 @@ class _SelectAddressBottomSheetState extends State<SelectAddressBottomSheet> {
                       child: Image.asset("${AppUI.imgPath}closePopup.png",height: 15,width: 15),
                     )
                     )),
-                    body: Center(
+                    body:BlocBuilder< AddressesCubit, AddressesState>(
+          buildWhen : (_,state) => state is  GetAddressLoadingState || state is GetAddressLoadedState || state is GetAddressErrorState ||
+          state is  DefaultAddressLoadingState || state is DefaultAddressLoadedState || state is DefaultAddressErrorState,
+          builder: (context, state) {
+            if(state is GetAddressLoadingState){
+              return const LoadingWidget();
+            }
+            if(state is  GetAddressErrorState){
+              return const ErrorFetchWidget();
+            }
+          return Center(
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
@@ -59,7 +87,7 @@ class _SelectAddressBottomSheetState extends State<SelectAddressBottomSheet> {
                         );
                       },
                       scrollDirection: Axis.vertical,
-                      itemCount: 2,
+                      itemCount: cubit.getAddressModel?.address?.length ?? 0,
                       itemBuilder: (context, count) {
                         return InkWell(child: Padding(padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                         child: Container(
@@ -74,15 +102,23 @@ class _SelectAddressBottomSheetState extends State<SelectAddressBottomSheet> {
                         SvgPicture.asset("${AppUI.iconPath}mapMarker.svg" , color: select==count ? AppUI.mainColor:AppUI.greyColor),
                         SizedBox(width: 10,),
                         Expanded(child: 
-                        CustomText(text: "Select your location".tr() , color: AppUI.blackColor, fontSize: 12,),),
+                        CustomText(text: "${cubit.getAddressModel?.address?[count].blockName} , ${cubit.getAddressModel?.address?[count].streetName}  ${cubit.getAddressModel?.address?[count].specialMarque} " , color: AppUI.blackColor, fontSize: 12,),),
                         ],),)
                         ),
-                        onTap: () {
+                        onTap: () async {
                           select = count;
                           print(select);
-                          setState(() {
-                            
-                          });
+
+                         Navigator.pop(context, true); 
+                          await cubit.defaultAddress("${cubit.getAddressModel?.address?[count].id}");
+                          cubitCheckout.addressId = "${cubit.getAddressModel?.address?[count].id}";
+                          CashHelper.setSavedString("address", "${cubit.getAddressModel?.address?[count].apartmentName} , ${cubit.getAddressModel?.address?[count].streetName}");
+                         var address =  await CashHelper.getSavedString("address", "");
+                         AppUtil.address = address;
+                         
+
+
+
                         },
                         );
 
@@ -99,15 +135,20 @@ class _SelectAddressBottomSheetState extends State<SelectAddressBottomSheet> {
                         CustomText(text: "Add a new delivery location".tr() , color: AppUI.blackColor, fontSize: 14,fontWeight: FontWeight.w600,),),
                         ],),
                         onTap: () {
+                           Navigator.pop(context, true); 
                           AppUtil.mainNavigator(context, AddAddressScreen());
                         },
                         )
                           ],
                         ),
                       ),
-                    ),
+                    );
+          }
+                    )
+  
                   ),
                 ),
     );
   }
+  
 }

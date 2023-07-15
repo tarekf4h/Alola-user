@@ -10,7 +10,7 @@
     "pass" : "كلمة المرور" ,
     "Phone" : "رقم الهاتف" ,
     "login" : "سجل دخولك" ,
-    "Login" : "تسجيل" ,
+    "Login" : "تسجيل الدخول" ,
     "firstName" : "الاسم الأول",
     "lastName" : "الاسم الأخير" ,
     "email" : "البريد الالكتروني" ,
@@ -303,7 +303,28 @@
     "create" : "إنشاء" ,
     "Account details" : "بيانات الحساب", 
     "Add a new delivery location" : "إضافة موقع جديد" ,
-    "Choose delivery location" : "إختار موقع التوصيل"
+    "Choose delivery location" : "إختار موقع التوصيل" ,
+    "Please mention any notes related to the order" : "يرجى ذكر اي ملاحظة تتعلق بالطلب" ,
+    "SR" : "ر.س" ,
+    "All fields required" : "جميع الحقول مطلوبة" ,
+    "Please choose a location on the map" : "من فضلك اختر موقع من على الخريطة" ,
+    "Address details" : "تفاصيل العنوان" ,
+    "Choose your delivery time" : "اختر وقت التوصيل" ,
+    "Please login to continue" : "من فضلك قم بتسجيل الدخول للمتابعة" ,
+    "The cart is empty" : "العربة فارغة" , 
+    "There are no orders" : "لا يوجد طلبات" ,
+    "Re-order" : "إعادة الطلب" ,
+    "Your rating for the delegate" : "تقيمك للمندوب",
+    "Rating" : "التقييم",
+    "Rate your delivery time"  : "تقيمك لوقت التوصيل",
+    "Rate your delivery speed": "تقيمك لسرعة التوصيل",
+    "Your rating for the products" : "تقيمك للمنتجات" ,
+    "Tell us your rating to improve the service level" : "أخبرنا بتقييمك لتحسين مستوى الخدمة"
+
+
+
+
+
 
 
 

@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:adelco_user/presentation/auth/phone_screen.dart';
 import 'package:adelco_user/presentation/auth/signup_company_screen.dart';
 import 'package:adelco_user/presentation/auth/signup_screen.dart';
@@ -9,6 +11,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../bloc/auth/auth_cubit.dart';
+import '../../bloc/bottom_nav/bottom_nav_cubit.dart';
+import '../../shared/cash_helper.dart';
 import '../../shared/components.dart';
 import '../../utilities/app_ui.dart';
 import '../../utilities/app_util.dart';
@@ -31,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
         builder: (context, state) {
           var cubit = AuthCubit.get(context);
           return Form(
+            key: cubit.loginFormKey,
             child:
             Padding(
               padding: const EdgeInsets.only(left: 16 , right: 16 ),
@@ -51,12 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
                    SizedBox(height: 8,),
                    CustomText(text: "login".tr() ,fontSize: 24,color: AppUI.blackColor,fontWeight: FontWeight.bold,),
                    SizedBox(height: 24,),
-                   Container(child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "Phone".tr() ,)),
+                  CustomInput(controller: cubit.loginPhone, lable: "Phone".tr(), textInputType: TextInputType.phone,prefixIcon:  CustomText(text: "+966",fontSize: 16.0,color: AppUI.blackColor),),
                    SizedBox(height: 24,),
-                   Container(child: CustomInput(obscureText: true ,controller: TextEditingController(), textInputType: TextInputType.phone , lable: "pass".tr(),)),
+                   Container(child: CustomInput(obscureText: true ,controller: cubit.loginPassword, textInputType: TextInputType.text , lable: "pass".tr(),)),
                    SizedBox(height: 8,),
                    Container(
-                    width: 300,
                      child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -69,10 +73,27 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],),
                    ),
                    SizedBox(height: 36,),
-                   Container(
-                   child: CustomButton(text:  "Login".tr() ,height: 20, radius: 36 ,onPressed: () {
-                     AppUtil.replacementNavigator(context, BottomNavTabsScreen());
-                   },),),
+                  if(state is LoginLoadingState)
+                    const CircularProgressIndicator()
+                    else
+                   CustomButton(text:  "Login".tr() ,height: 20, radius: 36 ,onPressed: () async {
+                    if(cubit.loginFormKey.currentState!.validate()) {
+                      await cubit.login(context);
+                       if(cubit.loginModel!.status == true){
+                            CashHelper.setSavedString("id", cubit.loginModel!.data!.accessToken!.toString());
+                            CashHelper.setSavedString("phone", cubit.loginModel?.data?.userData?.mobile ?? "");
+                            CashHelper.setSavedString("name", cubit.loginModel?.data?.userData?.name ?? "");
+                            CashHelper.setSavedString("user", jsonEncode(cubit.loginModel!.data!));
+                            AppUtil.isLogin = true;
+                          var name =  await CashHelper.getSavedString("name", "");
+                          AppUtil.name = name;
+                            AppUtil.successToast(context, cubit.loginModel?.message ?? "");
+                            AppUtil.replacementNavigator(context, BottomNavTabsScreen());
+                          }else{
+                            AppUtil.errorToast(context, cubit.loginModel?.message ?? "");
+                          }
+                    }
+                   },),
                    SizedBox(height: 16,),
                    Container(
                    child: Row(
@@ -290,8 +311,14 @@ class _LoginScreenState extends State<LoginScreen> {
           //   );
             
                         }
-                     ,)],
-                   ),)
+                     ,),
+                     ],
+                   ),),
+                   SizedBox(height: 20,),
+                            InkWell(child: Center(child: CustomText(text: "Shop now".tr() , fontSize: 16,fontWeight:FontWeight.bold,),),onTap: () {
+                            BottomNavCubit.get(context).currentIndex=0;
+                            AppUtil.replacementNavigator(context, BottomNavTabsScreen());
+                          },)
                    ],
               ),),
             )

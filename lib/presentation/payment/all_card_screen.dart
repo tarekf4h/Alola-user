@@ -27,7 +27,7 @@ class _AllCardScreenState extends State<AllCardScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
 
-        Container(height: 80,child: Center(child: CustomText(text: "500",fontSize: 32,fontWeight: FontWeight.w600,),),),
+        Container(height: 80,child: Center(child: CustomText(text: "500 ${"SR".tr()}",fontSize: 32,fontWeight: FontWeight.w600,),),),
         SizedBox(height: 10,),
         Expanded(
           child: 
@@ -39,10 +39,10 @@ class _AllCardScreenState extends State<AllCardScreen> {
                       );
                     },
                     scrollDirection: Axis.vertical,
-                    itemCount: 2,
+                    itemCount: 3,
                     itemBuilder: (context, count) {
                       final item = count;
-                  return Container(
+                  return item != 2 ? Container(
                     margin: EdgeInsets.symmetric(horizontal: 20),
                   height: 45,
                 decoration: BoxDecoration(
@@ -66,12 +66,7 @@ class _AllCardScreenState extends State<AllCardScreen> {
           SizedBox(width: 5,),
           
           CustomText(text: "122342535534" , color: AppUI.blackColor, fontSize: 12,),
-         ],),);
-        })),
-        // Expanded(
-        //   flex: 2,
-          // child: 
-        InkWell(child:  Container(height: 50,width: AppUtil.responsiveWidth(context),
+         ],),): InkWell(child:  Container(height: 50,width: AppUtil.responsiveWidth(context),
        decoration: BoxDecoration(
                  border: Border.all(color: AppUI.shimmerColor ,width: 0.5),
                  ),
@@ -86,7 +81,12 @@ class _AllCardScreenState extends State<AllCardScreen> {
          onTap: () {
            AppUtil.mainNavigator(context, AddCardScreen());
          }, 
-        )
+        );  
+        })),
+        // Expanded(
+        //   flex: 2,
+          // child: 
+       
       // ),
       // Expanded(flex: 0,child: Container()),
          

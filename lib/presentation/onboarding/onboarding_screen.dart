@@ -8,8 +8,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:light_carousel/main/light_carousel.dart';
 
+import '../../bloc/bottom_nav/bottom_nav_cubit.dart';
 import '../../bloc/onboarding/onboarding_cubit.dart';
 import '../../utilities/app_ui.dart';
+import '../bottom_nav/bottom_nav_tabs_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -112,6 +114,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                            mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                           CustomButton(width: 140,text:  "Shop now".tr() , radius: 20 ,onPressed: (() {
+                            BottomNavCubit.get(context).currentIndex=0;
+                            AppUtil.replacementNavigator(context, BottomNavTabsScreen());
                          }),),
                          SizedBox(width: 30,),
                         CustomButton(width: 140,textColor:AppUI.mainColor ,color: AppUI.secondColor,text:"Login".tr()  , radius: 20 ,onPressed: () {

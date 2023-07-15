@@ -90,11 +90,16 @@ class _LanguageScreenState extends State<LanguageScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: CustomButton(text: "Confirm".tr(), onPressed: (() {
                   if (lang == "1") {
+                    AppUtil.Lang = "en";
+                    print("${AppUtil.Lang} splashhhhhhh2" );
                        CashHelper.setSavedString("lang", "en");
                           context.setLocale(const Locale("en"));
                           Navigator.of(context,rootNavigator: true).pop();
                           AppUtil.removeUntilNavigator(context, const MyApp());
+
                   }else if (lang == "0"){
+                    AppUtil.Lang = "ar";
+                    print("${AppUtil.Lang} splashhhhhhh2" );
                        CashHelper.setSavedString("lang", "ar");
                           context.setLocale(const Locale("ar"));
                           Navigator.of(context,rootNavigator: true).pop();

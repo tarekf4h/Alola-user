@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../../models/order/orders_model.dart';
+
 class StatusesScreen extends StatefulWidget {
-  const StatusesScreen({Key? key}) : super(key: key);
+  final Order? data;
+  const StatusesScreen({Key? key , required this.data}) : super(key: key);
 
   @override
   State<StatusesScreen> createState() => _StatusesScreenState();
@@ -61,7 +64,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                         color: AppUI.blackColor,
                       ),
                       CustomText(
-                        text: "text",
+                        text: "${widget.data?.orderInfo?.expectedDeliveryInMinutes}",
                         fontSize: 12,
                         color: AppUI.darkActiveColor,
                         fontWeight: FontWeight.w600,
@@ -91,7 +94,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                         fontSize: 10,
                       ),
                       CustomText(
-                          text: "text", color: AppUI.blackColor, fontSize: 10),
+                          text: "${widget.data?.orderInfo?.orderCode}", color: AppUI.blackColor, fontSize: 10),
                     ],
                   ),
                   SizedBox(
@@ -112,7 +115,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                               EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                           child: Center(
                               child: CustomText(
-                                  text: "Text",
+                                  text: "${widget.data?.orderInfo?.status}",
                                   color: AppUI.activeColor,
                                   fontSize: 10)))
                     ],
@@ -128,7 +131,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                           color: AppUI.greyColor,
                           fontSize: 10),
                       CustomText(
-                          text: "text", color: AppUI.blackColor, fontSize: 10),
+                          text: "${widget.data?.orderInfo?.address?.blockName} , ${widget.data?.orderInfo?.address?.streetName} ${widget.data?.orderInfo?.address?.specialMarque}", color: AppUI.blackColor, fontSize: 10),
                     ],
                   ),
                   SizedBox(
@@ -142,7 +145,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                           color: AppUI.greyColor,
                           fontSize: 10),
                       CustomText(
-                          text: "text", color: AppUI.blackColor, fontSize: 10),
+                          text: "${widget.data?.orderInfo?.quantity}", color: AppUI.blackColor, fontSize: 10),
                     ],
                   ),
                   SizedBox(
@@ -154,7 +157,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                       CustomText(
                           text: "Total".tr(), color: AppUI.greyColor, fontSize: 10),
                       CustomText(
-                          text: "text", color: AppUI.blackColor, fontSize: 10),
+                          text: "${widget.data?.orderInfo?.total} ${"SR".tr()}", color: AppUI.blackColor, fontSize: 10),
                     ],
                   ),
                   SizedBox(
@@ -219,7 +222,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                   steps: [
                     Step(
                         subtitle: CustomText(
-                            text: "18/06/2022", color: AppUI.greyColor),
+                            text: "", color: AppUI.greyColor),
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -230,7 +233,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                               fontWeight: FontWeight.w600,
                             ),
                             CustomText(
-                                text: "00:05",
+                                text: "",
                                 color: AppUI.darkActiveColor,
                                 fontWeight: FontWeight.w600),
                           ],
@@ -239,10 +242,10 @@ class _StatusesScreenState extends State<StatusesScreen> {
                           height: 0,
                         ),
                         isActive: true,
-                        state: StepState.disabled),
+                        state: StepState.complete),
                     Step(
                         subtitle: CustomText(
-                            text: "18/06/2022", color: AppUI.greyColor),
+                            text: "", color: AppUI.greyColor),
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -253,7 +256,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                               fontWeight: FontWeight.w600,
                             ),
                             CustomText(
-                                text: "00:05",
+                                text: "",
                                 color: AppUI.darkActiveColor,
                                 fontWeight: FontWeight.w600),
                           ],
@@ -261,11 +264,11 @@ class _StatusesScreenState extends State<StatusesScreen> {
                         content: SizedBox(
                           height: 0,
                         ),
-                        isActive: true,
+                        isActive: false,
                         state: StepState.disabled),
                     Step(
                         subtitle: CustomText(
-                            text: "18/06/2022", color: AppUI.greyColor),
+                            text: "", color: AppUI.greyColor),
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -276,7 +279,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                               fontWeight: FontWeight.w600,
                             ),
                             CustomText(
-                                text: "00:05",
+                                text: "",
                                 color: AppUI.darkActiveColor,
                                 fontWeight: FontWeight.w600),
                           ],
@@ -284,11 +287,11 @@ class _StatusesScreenState extends State<StatusesScreen> {
                         content: SizedBox(
                           height: 0,
                         ),
-                        // isActive: true,
+                        isActive: false,
                         state: StepState.disabled),
-                    Step(
+                                            Step(
                         subtitle: CustomText(
-                            text: "18/06/2022", color: AppUI.greyColor),
+                            text: "", color: AppUI.greyColor),
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -299,7 +302,7 @@ class _StatusesScreenState extends State<StatusesScreen> {
                               fontWeight: FontWeight.w600,
                             ),
                             CustomText(
-                                text: "00:05",
+                                text: "",
                                 color: AppUI.darkActiveColor,
                                 fontWeight: FontWeight.w600),
                           ],
@@ -307,8 +310,31 @@ class _StatusesScreenState extends State<StatusesScreen> {
                         content: SizedBox(
                           height: 0,
                         ),
-                        // isActive: true,
+                        isActive: false,
                         state: StepState.disabled),
+                    // Step(
+                    //     subtitle: CustomText(
+                    //         text: "", color: AppUI.greyColor),
+                    //     title: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         CustomText(
+                    //           text: "Delivered".tr(),
+                    //           fontSize: 16,
+                    //           color: AppUI.blackColor,
+                    //           fontWeight: FontWeight.w600,
+                    //         ),
+                    //         CustomText(
+                    //             text: "",
+                    //             color: AppUI.darkActiveColor,
+                    //             fontWeight: FontWeight.w600),
+                    //       ],
+                    //     ),
+                    //     content: SizedBox(
+                    //       height: 0,
+                    //     ),
+                    //     // isActive: true,
+                    //     state: StepState.disabled),
                   ],
                 ),
               ),

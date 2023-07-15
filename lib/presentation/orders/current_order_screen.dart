@@ -1,18 +1,23 @@
 import 'package:adelco_user/presentation/orders/chat_screen.dart';
 import 'package:adelco_user/presentation/orders/products_bottom_sheet.dart';
 import 'package:adelco_user/presentation/orders/statuses_screen.dart';
+import 'package:adelco_user/presentation/orders/widget/product_order.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../bloc/Orders/orders_cubit.dart';
+import '../../models/order/orders_model.dart';
 import '../../shared/components.dart';
 import '../../utilities/app_ui.dart';
 import '../../utilities/app_util.dart';
 
 class CurrentOrderScreen extends StatefulWidget {
-  const CurrentOrderScreen({Key? key}) : super(key: key);
+  final Order? data;
+  const CurrentOrderScreen({Key? key , required this.data}) : super(key: key);
 
   @override
   State<CurrentOrderScreen> createState() => _CurrentOrderScreenState();
@@ -21,9 +26,13 @@ class CurrentOrderScreen extends StatefulWidget {
 class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
   @override
   Widget build(BuildContext context) {
+        final cubit = OrdersCubit.get(context);
     return Scaffold(
       appBar: customAppBar(title: "Orders".tr(), elevation: 0.5, centerTitle: true),
-      body: Padding(
+      body: BlocBuilder< OrdersCubit, OrdersState>(
+          buildWhen : (_,state) => state is CancelLoadingState || state is CancelLoadedState || state is CancelErrorState,
+          builder: (context, state) {
+           return Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: ListView(
           children: [
@@ -61,7 +70,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                                   return StatefulBuilder(builder:
                                       (BuildContext context,
                                           StateSetter mystate) {
-                                    return ProductsBottomSheet();
+                                    return ProductsBottomSheet(data: widget.data,);
                                   });
                                 });
                           });
@@ -81,49 +90,16 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
               child: GridView.builder(
                 shrinkWrap: false,
                 primary: false,
-                itemCount: 20,
+                itemCount: widget.data?.orderDetails?.length ?? 0,
                 scrollDirection: Axis.horizontal,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 10,
-                  childAspectRatio: 1 / 0.7,
+                  childAspectRatio: 1 / 0.9,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    width: 96,
-                    height: 138,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppUI.whiteColor,
-                        border: Border.all(color: AppUI.shimmerColor)),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Image.asset("${AppUI.imgPath}milk.png",
-                            height: 70, width: 70),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                            // margin: EdgeInsets.all(5.0),
-                            child: Center(
-                                child: CustomText(
-                              text: "1",
-                              color: AppUI.whiteColor,
-                            )),
-                            decoration: BoxDecoration(
-                                color: AppUI.mainColor,
-                                shape: BoxShape.circle)),
-                        CustomText(
-                          text: "Text",
-                          color: AppUI.blackColor,
-                        )
-                      ],
-                    ),
-                  );
+                  return ProductOrder(data: widget.data?.orderDetails?[index],);
                 },
               ),
             ),
@@ -143,7 +119,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      AppUtil.mainNavigator(context, StatusesScreen());
+                      AppUtil.mainNavigator(context, StatusesScreen(data: widget.data,));
                     },
                     child: CustomText(
                       text: "Show".tr(),
@@ -197,7 +173,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                         color: AppUI.blackColor,
                       ),
                       CustomText(
-                        text: "text",
+                        text: "${widget.data?.orderInfo?.expectedDeliveryInMinutes}",
                         fontSize: 12,
                         color: AppUI.darkActiveColor,
                         fontWeight: FontWeight.w600,
@@ -328,14 +304,15 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                   SizedBox(
                     width: 20,
                   ),
-                  Column(
+              Expanded(
+  child:    Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         height: 4,
                       ),
                       CustomText(
-                        text: "Text",
+                        text: "${widget.data?.orderInfo?.orderCode}",
                         color: AppUI.blackColor,
                         fontSize: 14,
                         padding:
@@ -344,27 +321,36 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                       SizedBox(
                         height: 8,
                       ),
-                      Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: AppUI.mainColor.withAlpha(800)),
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                          child: Center(
-                              child: CustomText(
-                                  text: "Text",
-                                  color: AppUI.mainColor,
-                                  fontSize: 14))),
+                      Row(
+                        children: [
+                          SizedBox(width: 0,),
+                          Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: AppUI.mainColor.withAlpha(800)),
+                              padding:
+                                  EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              child: Center(
+                                  child: CustomText(
+                                      text: "${widget.data?.orderInfo?.status}",
+                                      color: AppUI.mainColor,
+                                      fontSize: 14))),
+                                      SizedBox(width: 0,),
+                        ],
+                      ),
                       SizedBox(
                         height: 8,
                       ),
-                      CustomText(
-                        text: "Text",
+   CustomText(
+                        text: "${widget.data?.orderInfo?.address?.blockName} , ${widget.data?.orderInfo?.address?.streetName} ${widget.data?.orderInfo?.address?.specialMarque}",
                         color: AppUI.blackColor,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                         fontSize: 14,
-                        padding:
-                              EdgeInsets.symmetric( vertical: 5)
+                        // padding:
+                        //       EdgeInsets.symmetric( vertical: 5)
                       ),
+                     
                       SizedBox(
                         height: 8,
                       ),
@@ -416,6 +402,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                       ],)
                     ],
                   )
+              )
                 ],
               ),
 
@@ -446,10 +433,10 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomText(
-                        text: "text",
+                        text: "${widget.data?.orderInfo?.quantity} ${"Product".tr()}",
                         color: AppUI.blackColor,
                       ),
-                      CustomText(text: "text", color: AppUI.blackColor),
+                      CustomText(text: "${widget.data?.orderInfo?.subtotal } ${"SR".tr()}", color: AppUI.blackColor),
                     ],
                   ),
                   SizedBox(
@@ -462,7 +449,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                         text: "Delivery".tr(),
                         color: AppUI.blackColor,
                       ),
-                      CustomText(text: "text", color: AppUI.blackColor),
+                      CustomText(text: "${widget.data?.orderInfo?.shippingPrice } ${"SR".tr()}", color: AppUI.blackColor),
                     ],
                   ),
                   SizedBox(
@@ -475,7 +462,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                         text: "Tax".tr(),
                         color: AppUI.blackColor,
                       ),
-                      CustomText(text: "text", color: AppUI.blackColor),
+                      CustomText(text: "${widget.data?.orderInfo?.vat } ${"SR".tr()}", color: AppUI.blackColor),
                     ],
                   ),
                   SizedBox(
@@ -488,7 +475,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                         text: "Promo code".tr(),
                         color: AppUI.blackColor,
                       ),
-                      CustomText(text: "text", color: AppUI.errorColor),
+                      CustomText(text: "${widget.data?.orderInfo?.discount } ${"SR".tr()}", color: AppUI.errorColor),
                     ],
                   ),
                   SizedBox(
@@ -500,10 +487,11 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
                       CustomText(
                         text: "Total".tr(),
                         color: AppUI.blackColor,
+                        fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
                       CustomText(
-                          text: "text", color: AppUI.blackColor, fontSize: 16),
+                          text: "${widget.data?.orderInfo?.total } ${"SR".tr()}", color: AppUI.blackColor,fontWeight: FontWeight.bold, fontSize: 16),
                     ],
                   ),
                   SizedBox(
@@ -513,18 +501,31 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen> {
             SizedBox(
               height: 10,
             ),
+            state is CancelLoadingState ?  LoadingWidget() :
             CustomButton(
               text: "Order cancellation".tr(),
               color: AppUI.errorColor.withAlpha(600),
               textColor: AppUI.errorColor,
               radius: 20,
+              onPressed: () async {
+                await cubit.cancel("${widget.data?.orderInfo?.id}");
+                if (cubit.cancelModel?.status == true){
+                  AppUtil.successToast(context, cubit.cancelModel?.message);
+                  cubit.getOrders();
+                  Navigator.pop(context, true);  
+                }else{
+                  AppUtil.errorToast(context, cubit.cancelModel?.message);
+                }
+              },
             ),
             SizedBox(
               height: 10,
             ),
           ],
         ),
-      ),
+      );
+          }
+      )
     );
   }
 }

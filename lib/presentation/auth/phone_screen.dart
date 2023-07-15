@@ -26,6 +26,7 @@ class _PhoneScreenState extends State<PhoneScreen> {
         builder: (context, state) {
           var cubit = AuthCubit.get(context);
           return Form(
+            key: cubit.phoneFormKey,
             child:
             Padding(
               padding: const EdgeInsets.only(left: 50 , right: 50 ),
@@ -40,25 +41,34 @@ class _PhoneScreenState extends State<PhoneScreen> {
                      height: 170,),
                      SizedBox(height: 20,),
                      Container(
-                      width: 300,
+                      
                        child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [ CustomText(text: "forgotPass".tr() ,fontSize: 22,color: AppUI.blackColor,),SizedBox(height: 20,),CustomTextCenter(text: "password reset code".tr()  ,color: AppUI.greyColor,fontSize: 14,)],),
                      ),
                      SizedBox(height: 20,),
-                     Container(width: 300,child: CustomInput(controller: TextEditingController(), textInputType: TextInputType.phone , lable: "Phone".tr() ,)),
+                    CustomInput(controller: cubit.phoneCode, lable: "Phone".tr(), textInputType: TextInputType.phone,prefixIcon:  CustomText(text: "+966",fontSize: 16.0,color: AppUI.blackColor),),
 
                      SizedBox(height: 20,),
-                     InkWell(
-                      onTap: () {
-                        AppUtil.mainNavigator(context, const VerificationScreen());
-                      },
-                      child:
-                     Container(width: 300,
-                     child: CustomButton(text:  "send".tr() , radius: 20),),),
+                    if(state is SendOtpLoadingState)
+                    const CircularProgressIndicator()
+                    else
+                     Container(
+                     child: CustomButton(text:  "send".tr() , radius: 20 , onPressed: () async {
+                       if(cubit.phoneFormKey.currentState!.validate()) {
+                              await cubit.sendOtp(context, "forgot", cubit.phoneCode.text , "");
+                              if(cubit.sendOtpModel!.status == true){
+                                AppUtil.successToast(context, "${cubit.sendOtpModel?.message ?? ""} \n ${cubit.sendOtpModel?.data ?? ""}");
+                                AppUtil.mainNavigator(context,  VerificationScreen(type: 'forgot', phone: cubit.phoneCode.text ,email: "",));
+                                }else{
+                                 AppUtil.errorToast(context, cubit.sendOtpModel?.message ?? "");
+                                }
+                       }
+                              
+                     },),),
                     SizedBox(height: 20,),
                     Container(
-                      width: 300,
+                     
                        child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

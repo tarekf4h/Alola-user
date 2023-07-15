@@ -95,7 +95,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   InkWell(onTap: () {
                     
                   },
-                  child:  Image.asset("${AppUI.imgPath}send.png",width: 50,height: 50,),)
+                  child: AppUtil.Lang !=  "ar" ? Image.asset("${AppUI.imgPath}send.png",width: 50,height: 50,):Transform.scale(scaleX: -1,child :Image.asset("${AppUI.imgPath}send.png",width: 50,height: 50,)),)
                  ],),
 
 

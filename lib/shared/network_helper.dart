@@ -1,16 +1,19 @@
 import 'dart:convert';
 
 import 'package:adelco_user/shared/cash_helper.dart';
+import 'package:adelco_user/utilities/app_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkHelper {
   static Future<Uri> setApi(String endPoint) async {
     // String lang = await CashHelper.getSavedString("lang", "");
-    return Uri.parse("http://neworder.demo.f4h.com.sa/api/$endPoint");
+    return Uri.parse("https://adelco-sa.com/ali/api/clients/$endPoint");
   }
-
-  static String url = "http://neworder.demo.f4h.com.sa/api/";
+static Uri setApiNew(String endPoint) {
+    return Uri.parse("https://adelco-sa.com/ali/api/clients/$endPoint");
+  }
+  static String url = "https://adelco-sa.com/ali/api/clients/";
 
 
   static Future<Map<String, dynamic>> repo(String endPoint, String type,
@@ -22,7 +25,7 @@ class NetworkHelper {
       "Accept": "application/json",
       "Authorization": "Bearer $jwt",
       "jwt": jwt,
-      "lang": lang==""?"ar":lang
+      "X-localization": AppUtil.Lang==""?"ar":AppUtil.Lang
     };
     if (kDebugMode) {
       print(headers);

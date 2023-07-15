@@ -9,7 +9,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../shared/cash_helper.dart';
 import '../../utilities/app_ui.dart';
+import '../auth/login_screen.dart';
 import '../map/address_screen.dart';
 import '../payment/all_card_screen.dart';
 import 'account_info_screen.dart';
@@ -23,6 +25,17 @@ class AccountsScreen extends StatefulWidget {
 }
 
 class _AccountsScreenState extends State<AccountsScreen> {
+   var textLgin = "";
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   if (AppUtil.isLogin){
+      textLgin = "Logout".tr();
+    }else{
+     textLgin = "Login".tr();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,15 +48,18 @@ class _AccountsScreenState extends State<AccountsScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if(AppUtil.isLogin)...[
               SizedBox(height: 16,),
               InkWell(child: AarrowContainer(img:"user" ,title: "Account info".tr(),),onTap: () {
                 AppUtil.mainNavigator(context, AccountInfoScreen());
               },),
+              
              SizedBox(height: 16,),
             InkWell(child: AarrowContainer(img:"bookmark" ,title: "Favorite".tr(),),onTap: () {
               AppUtil.mainNavigator(context, FavoriteScreen());
                 
               },),
+              ],
              SizedBox(height: 16,),
              InkWell(child: AarrowContainer(img:"headphones" ,title: "Support".tr(),),onTap: () {
               AppUtil.mainNavigator(context, SupportScreen());
@@ -67,24 +83,37 @@ class _AccountsScreenState extends State<AccountsScreen> {
           return LanguageScreen();
           });});});
               },),
+              if(AppUtil.isLogin)...[
              SizedBox(height: 16,),
              InkWell(child: AarrowContainer(img:"markr" ,title: "Addressees".tr(),),onTap: () {
                AppUtil.mainNavigator(context, AddressScreen());
                 
               },),
+              
              SizedBox(height: 16,),
              InkWell(child: AarrowContainer(img:"card" ,title: "Payment Cards".tr(),),onTap: () {
               AppUtil.mainNavigator(context, AllCardScreen());
                 
               },),
+              ],
              SizedBox(height: 16,),
              InkWell(child: AarrowContainer(img:"shield-check" ,title: "Usage Policy".tr(),),onTap: () {
               AppUtil.mainNavigator(context, UsagePolicyScreen());
                 
               },),
              SizedBox(height: 16,),
-             InkWell(child: AarrowContainer(img:"login" ,title: "Logout".tr(),),onTap: () {
-                
+             InkWell(child: AarrowContainer(img:"login" ,title: textLgin.tr(),),onTap: () {
+                              if(AppUtil.isLogin == true){
+
+                CashHelper.logOut(context);
+                AppUtil.isLogin = false;
+                              }else{
+                    AppUtil.mainNavigator(context,const LoginScreen());
+                              }  
+              // }else{
+             
+              // AppUtil.mainNavigator(context,const LoginScreen());
+              // }
               },),
              SizedBox(height: 16,),
             ],

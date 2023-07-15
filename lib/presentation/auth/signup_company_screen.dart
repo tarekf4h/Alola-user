@@ -1,7 +1,9 @@
+import 'package:adelco_user/presentation/auth/verification_screen.dart';
 import 'package:adelco_user/presentation/auth/widgets/company_data.dart';
 import 'package:adelco_user/presentation/auth/widgets/company_data2.dart';
 import 'package:adelco_user/presentation/auth/widgets/company_data3.dart';
 import 'package:adelco_user/presentation/auth/widgets/company_data4.dart';
+import 'package:adelco_user/utilities/app_util.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -84,18 +86,61 @@ class _SignupCompanyScreenState extends State<SignupCompanyScreen> with TickerPr
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-
-                           
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                    if(state is SendOtpLoadingState)
+                    const LoadingWidget()
+                    else
                           CustomButton(width: 140,text: tabController.index==3 ? "create".tr() : "next".tr()  , radius: 20 ,onPressed: () {
-                            setState(() {
+                            setState(() async {
                             if (tabController.index < 3){
-                            tabController.index += 1; 
-                            lastIndex =  curIndex;
-                            curIndex += 1; 
+                              if (tabController.index == 0){
+                                if(cubit.businessAccountFormKey1.currentState!.validate()) {
+                                  if(cubit.dateBusiness == null || cubit.orderTypeBusiness == null || cubit.activityBusiness == null  || cubit.clientCategoryIdBusiness == null){
+                                    AppUtil.errorToast(context, "All fields required".tr());
+                                } else{
+                                 tabController.index += 1; 
+                                 lastIndex =  curIndex;
+                                 curIndex += 1; 
+                                  }
+                                }else{
+                                 AppUtil.errorToast(context, "All fields required".tr()); 
+                                }
+                              }else if (tabController.index == 1){
+                              if(cubit.businessAccountFormKey2.currentState!.validate()) {
+                                 tabController.index += 1; 
+                                 lastIndex =  curIndex;
+                                 curIndex += 1; 
+                              }else{
+                                 AppUtil.errorToast(context, "All fields required".tr()); 
+                              }
+                              }else if (tabController.index == 2){
+                              if(cubit.businessAccountFormKey3.currentState!.validate()) {
+                                  if(cubit.procurement == null || cubit.commercialRegistration == null || cubit.bankStatementFor6Months == null  || cubit.taxCertificate == null
+                                  || cubit.identityOfTheOwnerOrOwnersImage == null|| cubit.nationalAddress == null|| cubit.latitude == null|| cubit.longitude == null){
+                                    AppUtil.errorToast(context, "All fields required".tr());
+                                } else{
+                                 tabController.index += 1; 
+                                 lastIndex =  curIndex;
+                                 curIndex += 1; 
+                                  }
+                              }else{
+                                 AppUtil.errorToast(context, "All fields required".tr()); 
+                              }
+                              }
                             }else if (tabController.index == 3){
-
+                              print("object");
+                              if(cubit.businessAccountFormKey4.currentState!.validate()) {
+                            await cubit.sendOtp(context, 'register', "${cubit.phoneBusiness.text}" , cubit.emailBusiness.text);
+                            if(cubit.sendOtpModel!.status == true){
+                             AppUtil.successToast(context, "${cubit.sendOtpModel?.message ?? ""} \n ${cubit.sendOtpModel?.data ?? ""}");
+                            AppUtil.mainNavigator(context,  VerificationScreen(type: 'register', phone: "${cubit.phoneBusiness.text}" ,email: cubit.emailBusiness.text,));
+                            }else{
+                             AppUtil.errorToast(context, cubit.sendOtpModel?.message ?? "");
+                            }
+                              }else{
+                                 AppUtil.errorToast(context, "All fields required".tr()); 
+                              }
                             }
                             });
                             

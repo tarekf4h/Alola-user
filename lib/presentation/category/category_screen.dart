@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../../bloc/product/product_cubit.dart';
 import '../../shared/components.dart';
 import '../../utilities/app_ui.dart';
 import '../home/products_screen.dart';
+import '../home/widget/category_widget.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
+    final cubit = ProductCubit.get(context);
     return Scaffold(
       appBar: customAppBar(title: "Category".tr() , centerTitle: true,elevation: 0.5),
       body: Padding(
@@ -25,7 +28,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         child: GridView.builder(
                   shrinkWrap: true ,
                   primary: false ,
-                  itemCount: 17,
+                  itemCount: cubit.categoryModel?.category?.length ?? 0,
                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                    crossAxisCount: 3,
                    crossAxisSpacing : 0 ,
@@ -33,40 +36,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                    childAspectRatio  : 1/1.2
              ), itemBuilder: (BuildContext context, int index) { 
               return InkWell(
-                onTap: () {
-                  // BottomNavCubit.get(context).setWarehouseIndex(1);
-                  AppUtil.mainNavigator(context, ProductsScreen());
+                 onTap: () {
+                cubit.getSubCategory(cubit.categoryModel?.category?[index].id ?? 0);
+                cubit.products(1, "${cubit.categoryModel?.category?[index].id}" , null, null, null);
+                 AppUtil.mainNavigator(context, ProductsScreen());
                 },
-
-                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                             decoration: BoxDecoration(
-                            color: AppUI.backgroundColor,
-                            shape: BoxShape.circle
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                              Padding(
-                                padding: const EdgeInsets.all(20.0),
-                                child: Image.asset("${AppUI.imgPath}Coffe.png",height: 50,width: 50),
-                              ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 10,),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomText(text: "text" ,fontSize: 12, color: AppUI.blackColor,),
-                               SizedBox(height: 5,),
-                            ],
-                          )
-                        ],
-                       ),
+                 child: CategoryWidget(data: cubit.categoryModel?.category?[index],)
 
               );
               },

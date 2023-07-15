@@ -5,12 +5,14 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../models/order/orders_model.dart';
 import '../../shared/components.dart';
 import '../../utilities/app_ui.dart';
 import '../../utilities/app_util.dart';
 
 class ProductsBottomSheet extends StatefulWidget {
-  const ProductsBottomSheet({Key? key}) : super(key: key);
+  final Order? data;
+  const ProductsBottomSheet({Key? key , required this.data}) : super(key: key);
 
   @override
   State<ProductsBottomSheet> createState() => _ProductsBottomSheetState();
@@ -47,7 +49,7 @@ class _ProductsBottomSheetState extends State<ProductsBottomSheet> {
                       );
                     },
                     scrollDirection: Axis.vertical,
-                    itemCount: 20,
+                    itemCount: widget.data?.orderDetails?.length ?? 0,
                     itemBuilder: (context, count) {
                       final item = count;
                                                     // Image.asset("${AppUI.imgPath}Coffe.png",width: 80,height: 80,),
@@ -63,17 +65,14 @@ class _ProductsBottomSheetState extends State<ProductsBottomSheet> {
                             children: [
                               Row(
                                 children: [
-                              Image.asset("${AppUI.imgPath}milk.png",width: 30,height: 30,),
+                              SetImage(width: 30, height: 30, img: widget.data?.orderDetails?[count].product?.image, borderRadius: 0),
                               SizedBox(width: 10,),
-                              CustomText(text: "text" , fontSize: 12, color: AppUI.blackColor,),
+                              CustomText(text: "${widget.data?.orderDetails?[count].quantity} X ${widget.data?.orderDetails?[count].product?.productTitle}" , fontSize: 12, color: AppUI.blackColor,),
                               SizedBox(width: 10,),
                               ],
                               ),
 
-                              CustomText(text: "text" , fontSize: 12, color: AppUI.blackColor,)
-
-                             
-                             
+                              CustomText(text: "${widget.data?.orderDetails?[count].discountPrice == "0.00"  || widget.data?.orderDetails?[count].discountPrice == null ? (widget.data?.orderDetails?[count].price) : widget.data?.orderDetails?[count].discountPrice} ${"SR".tr()}" , fontSize: 12, color: AppUI.blackColor,)
 
                           ]),),
                         ),

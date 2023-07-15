@@ -1,4 +1,5 @@
 
+import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -8,11 +9,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../utilities/app_ui.dart';
 import '../utilities/app_util.dart';
 String lang = "en";
+
+class SetImage extends StatefulWidget {
+  final double height;
+  final double width;
+  final double borderRadius;
+  final String? img;
+  const SetImage({Key? key , required this.width , required this.height , required this.img ,required  this.borderRadius }) : super(key: key);
+
+  @override
+  State<SetImage> createState() => _SetImageState();
+}
+
+class _SetImageState extends State<SetImage> {
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
+                  child:
+    FadeInImage.assetNetwork(
+      // fit: BoxFit. ,
+      height: widget.height,
+      width: widget.width,
+  placeholder: "${AppUI.imgPath}Logo.png",
+  image: widget.img ?? "",
+   imageErrorBuilder: (_, __, ___) {
+     return Image.asset("${AppUI.imgPath}Logo.png",height: widget.height,
+      width: widget.width,); //this is what will fill the Container in case error happened 
+                            }
+));
+  }
+}
 class GradientCircularProgressIndicator extends StatelessWidget {
   final double? radius;
   final List<Color>? gradientColors;
@@ -122,11 +155,13 @@ class CustomText extends StatelessWidget {
   final Color? color;
   final TextDecoration? textDecoration;
   final EdgeInsetsGeometry? padding;
-  const CustomText({Key? key,@required this.text,this.fontSize = 14,this.textAlign,this.fontWeight = FontWeight.w100,this.color,this.textDecoration , this.padding}) : super(key: key);
+  final TextOverflow? overflow;
+  final int? maxLines;
+  const CustomText({Key? key,@required this.text,this.fontSize = 14,this.textAlign,this.fontWeight = FontWeight.w100,this.color,this.textDecoration ,this.overflow, this.padding, this.maxLines}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(padding: padding,child: Text(text!,textAlign: textAlign==null?AppUtil.rtlDirection(context)?TextAlign.right:textAlign:TextAlign.left,style: TextStyle(color: color??AppUI.mainColor,fontSize: fontSize,fontWeight: fontWeight,decoration: textDecoration),textDirection: AppUtil.rtlDirection(context)?ui.TextDirection.rtl:ui.TextDirection.ltr,));
+    return Container(padding: padding,child: Text(text!,textAlign: textAlign==null?AppUtil.rtlDirection(context)?TextAlign.right:textAlign:TextAlign.left,overflow: overflow ,maxLines: maxLines ,style: TextStyle(color: color??AppUI.mainColor,fontSize: fontSize,fontWeight: fontWeight,decoration: textDecoration),textDirection: AppUtil.rtlDirection(context)?ui.TextDirection.rtl:ui.TextDirection.ltr,));
   }
 }
 class CustomTextCenter extends StatelessWidget {
@@ -205,7 +240,7 @@ class CustomDateTimeFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return  DateTimeFormField(
           decoration:  InputDecoration(
-          labelStyle: TextStyle(color: Color(0xFF006AD8)),
+          labelStyle: TextStyle(color: AppUI.blackColor),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
             borderSide: BorderSide(color: AppUI.errorColor)),
@@ -254,20 +289,20 @@ class CustomButton extends StatelessWidget {
   }
 }
 
-class CustomQrImage extends StatelessWidget {
-  final String data;
-  final double size;
-  const CustomQrImage({Key? key , required this.data ,required this.size}) : super(key: key);
+// class CustomQrImage extends StatelessWidget {
+//   final String data;
+//   final double size;
+//   const CustomQrImage({Key? key , required this.data ,required this.size}) : super(key: key);
    
-  @override
-  Widget build(BuildContext context) {
-    return  QrImage(
-     data: data,
-    version: QrVersions.auto,
-    size: size,
-);
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return  QrImage(
+//      data: data,
+//     version: QrVersions.auto,
+//     size: size,
+// );
+//   }
+// }
 class CustomCard extends StatelessWidget {
   final Widget child;
   final double? height,width,radius,paddingHorizontal,paddingVertical;
@@ -302,9 +337,15 @@ class CustomCard extends StatelessWidget {
     );
   }
 }
-class SelectLocationContainer extends StatelessWidget {
-  const SelectLocationContainer({Key? key}) : super(key: key);
+class SelectLocationContainer extends StatefulWidget {
+  final String? title;
+  const SelectLocationContainer({Key? key , this.title}) : super(key: key);
 
+  @override
+  State<SelectLocationContainer> createState() => _SelectLocationContainerState();
+}
+
+class _SelectLocationContainerState extends State<SelectLocationContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -319,9 +360,9 @@ class SelectLocationContainer extends StatelessWidget {
           Image.asset('${AppUI.imgPath}Mask Group 507.png',width: 24,height: 24,),
           SizedBox(width: 10,),
           Expanded(child: 
-          CustomText(text: "Select your location".tr() , color: AppUI.blackColor, fontSize: 12,),),
+          CustomText(text: widget.title ?? "Select your location".tr() , color: AppUI.blackColor, fontSize: 12,),),
           SizedBox(width: 10,),
-          Image.asset('${AppUI.imgPath}AarrowE.png',width: 16,height: 16,),
+          Image.asset('${AppUI.imgPath}${AppUtil.Lang == "ar" ? "Aarrow.png":"AarrowE.png"}',width: 16,height: 16,),
          ],),);
   }
 }
@@ -406,7 +447,8 @@ class  CustomAarrowContainer extends StatelessWidget {
 class CustomeCompanyData extends StatelessWidget {
   final String? mainTitel;
   final String? subTitel;
-  const CustomeCompanyData({Key? key , required this.mainTitel ,  this.subTitel }) : super(key: key);
+  final XFile? file;
+  const CustomeCompanyData({Key? key , required this.mainTitel ,  this.subTitel  , this.file}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -433,8 +475,12 @@ class CustomeCompanyData extends StatelessWidget {
            child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              
+              if(file == null)...[
               Image.asset('${AppUI.imgPath}Mask Group 377.png',width: 32,height: 32,),
+              ],
+              if(file != null)...[
+              Image.file(File(file!.path,) , fit: BoxFit.cover,width: 32,height: 32)
+              ],
               SizedBox(width: 15,),
               Expanded(
       child:
@@ -465,28 +511,14 @@ class CustomDropdownButtonFormField extends StatelessWidget {
             decoration: InputDecoration(
             border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
-            borderSide: BorderSide(color: AppUI.mainColor)),
+            borderSide: BorderSide(color: AppUI.shimmerColor)),
             enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(8)),
             borderSide: BorderSide(color: AppUI.shimmerColor)),
             labelText: label,
-            labelStyle: TextStyle(color: AppUI.mainColor)
+            labelStyle: TextStyle(color: AppUI.blackColor)
             ),
             items: items
-            // [
-            //   DropdownMenuItem(
-            //     child: Text(
-            //       "M",
-            //     ),
-            //     value: "MALE",
-            //   ),
-            //   DropdownMenuItem(
-            //     child: Text(
-            //       "Female",
-            //     ),
-            //     value: "F",
-            //   ),
-            // ],
           );
   }
 }
@@ -513,7 +545,7 @@ class CustomInput extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
-     
+      keyboardType: textInputType,
       onTap: onTap,
       readOnly: readOnly,
       onFieldSubmitted: onFieldSubmitted,
@@ -539,10 +571,13 @@ class CustomInput extends StatelessWidget {
         labelStyle: TextStyle(color: AppUI.blackColor , fontSize: fontSize),
         filled: true,
         fillColor: fillColor??AppUI.whiteColor,
-        suffixIconConstraints: const BoxConstraints(
-            minWidth: 63
-        ),
-        prefixIcon: prefixIcon,
+        // suffixIconConstraints: const BoxConstraints(
+        //     minWidth: 63
+        // ),
+        prefixIcon: prefixIcon != null ? Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10 , vertical: 16),
+          child: prefixIcon,
+        ) :null,
         contentPadding: EdgeInsets.symmetric(horizontal: 10,vertical: AppUtil.responsiveHeight(context)*0.0153),
         border: border?OutlineInputBorder(
             borderRadius: BorderRadius.only(topLeft: Radius.circular(radius),bottomLeft: Radius.circular(radius),bottomRight: Radius.circular(radius),topRight: Radius.circular(radius) ),
@@ -565,6 +600,14 @@ class CustomInput extends StatelessWidget {
         ):OutlineInputBorder(
           borderSide: BorderSide(color: AppUI.mainColor),
            borderRadius: BorderRadius.circular(radius)
+        ),
+        errorBorder:OutlineInputBorder(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(radius),bottomLeft: Radius.circular(radius),bottomRight: Radius.circular(radius),topRight: Radius.circular(radius)),
+            borderSide: BorderSide(color: AppUI.errorColor)
+        ),
+        focusedErrorBorder:OutlineInputBorder(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(radius),bottomLeft: Radius.circular(radius),bottomRight: Radius.circular(radius),topRight: Radius.circular(radius)),
+            borderSide: BorderSide(color: AppUI.errorColor)
         ),
 
       ),
